@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
 
 namespace ToradoraTranslateTool
 {
@@ -16,23 +17,73 @@ namespace ToradoraTranslateTool
         public Form1()
         {
             InitializeComponent();
-            if (!Directory.Exists(Path.Combine(Application.StartupPath, "Data", "Iso")))
-               Directory.CreateDirectory(Path.Combine(Application.StartupPath, "Data", "Iso"));
-          
+            EnableButtons();
         }
 
         // TODO:
-        // 1. Extract ISO
-        // 2. Extract .dat
+        // 1. Extract ISO            ✓
+        // 2. Extract .dat           ✓
         // 3. Edit .obj
-        // 4. Create new seekmap
-        // 5. Create new .dat
+        // 4. Repack .dat            ✓
+        // 5. Create new seekmap
         // 6. Create ISO
 
-        private void button1_Click(object sender, EventArgs e)
+        private void EnableButtons()
         {
-            IsoTools.Extract(@"C:\Users\Павел\source\repos\ToradoraTranslateTool\ToradoraTranslateTool\bin\Debug\Toradora Portable! (English v1.10).iso");
-            MessageBox.Show("Done!");
+            buttonExtractIso.Enabled = true;
+            if (File.Exists(Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "resource.dat"))) // If iso already extracted, enable next step button
+                buttonExtractGame.Enabled = true;
+        }
+
+        private void DisableButtons()
+        {
+            buttonExtractIso.Enabled = false;
+            buttonExtractGame.Enabled = false;
+            buttonExtractGame.Enabled = false;
+            buttonTranslate.Enabled = false;
+            buttonRepackgame.Enabled = false;
+            buttonRepackIso.Enabled = false;
+        }
+
+        private async void buttonExtractIso_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Toradora ISO (*.iso) | *.iso";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    ChangeStatus(true);
+                    DisableButtons();
+
+                    await Task.Run(() => IsoTools.Extract(openFileDialog.FileName));
+
+                    ChangeStatus(false);
+                    EnableButtons();
+                }
+            }
+        }
+
+        private void ChangeStatus(bool isWorking)
+        {
+            if (isWorking)
+            {
+                labelWork.Text = "Working";
+                timerWork.Enabled = true;
+            }
+            else
+            {
+                timerWork.Enabled = false;
+                labelWork.Text = "Ready";
+            }
+        }
+
+        private void timerWork_Tick(object sender, EventArgs e)
+        {
+            if (labelWork.Text != "Working...")
+                labelWork.Text += ".";
+            else
+                labelWork.Text = "Working";        
         }
     }
 }
