@@ -26,13 +26,15 @@ namespace ToradoraTranslateTool
         // 3. Edit .obj
         // 4. Repack .dat            ✓
         // 5. Create new seekmap
-        // 6. Create ISO
+        // 6. Create new ISO
 
         private void EnableButtons()
         {
             buttonExtractIso.Enabled = true;
             if (File.Exists(Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "resource.dat"))) // If iso already extracted, enable next step button
                 buttonExtractGame.Enabled = true;
+            if (File.Exists(Path.Combine(Application.StartupPath, "Data", "Txt", "utf16.txt", "utf16.txt"))) // If game files already extracted, enable next step button
+                buttonTranslate.Enabled = true;
         }
 
         private void DisableButtons()
@@ -62,6 +64,20 @@ namespace ToradoraTranslateTool
                     EnableButtons();
                 }
             }
+        }
+
+        private async void buttonExtractGame_Click(object sender, EventArgs e)
+        {
+            ChangeStatus(true);
+            DisableButtons();
+
+            await Task.Run(() => DatTools.Extract(Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "resource.dat")));
+            await Task.Run(() => DatTools.Extract(Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "first.dat")));
+            await Task.Run(() => ObjTools.ProcessObjGz(Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource")));
+            await Task.Run(() => ObjTools.ProcessTxtGz(Path.Combine(Application.StartupPath, "Data", "DatWorker", "first")));
+
+            ChangeStatus(false);
+            EnableButtons();
         }
 
         private void ChangeStatus(bool isWorking)

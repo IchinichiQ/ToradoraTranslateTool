@@ -67,6 +67,7 @@
             this.buttonExtractGame.TabIndex = 1;
             this.buttonExtractGame.Text = "Extract game files";
             this.buttonExtractGame.UseVisualStyleBackColor = true;
+            this.buttonExtractGame.Click += new System.EventHandler(this.buttonExtractGame_Click);
             // 
             // buttonTranslate
             // 
