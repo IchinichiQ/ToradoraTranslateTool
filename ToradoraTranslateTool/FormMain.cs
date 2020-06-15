@@ -74,8 +74,8 @@ namespace ToradoraTranslateTool
             ChangeStatus(true);
             DisableButtons();
 
-            await Task.Run(() => DatTools.Extract(Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "resource.dat")));
-            await Task.Run(() => DatTools.Extract(Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "first.dat")));
+            await Task.Run(() => DatTools.ExtractDat(Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "resource.dat")));
+            await Task.Run(() => DatTools.ExtractDat(Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "first.dat")));
             await Task.Run(() => ObjTools.ProcessObjGz(Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource")));
             await Task.Run(() => ObjTools.ProcessTxtGz(Path.Combine(Application.StartupPath, "Data", "DatWorker", "first")));
 
@@ -86,8 +86,21 @@ namespace ToradoraTranslateTool
         private void buttonTranslate_Click(object sender, EventArgs e)
         {
             FormTranslation myForm = new FormTranslation();
-            myForm.Show();
-            
+            myForm.Show();        
+        }
+
+        private async void buttonRepackGame_Click(object sender, EventArgs e)
+        {
+            ChangeStatus(true);
+            DisableButtons();
+
+            await Task.Run(() => ObjTools.RepackObj());
+            await Task.Run(() => DatTools.RepackDat(Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource.dat-LstOrder.lst")));
+            await Task.Run(() => ObjTools.RepackSeekmap(Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource.dat"), Path.Combine(Application.StartupPath, "Data", "DatWorker", "first")));
+            await Task.Run(() => DatTools.RepackDat(Path.Combine(Application.StartupPath, "Data", "DatWorker", "first.dat-LstOrder.lst")));
+
+            ChangeStatus(false);
+            EnableButtons();
         }
 
         private void ChangeStatus(bool isWorking)

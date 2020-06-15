@@ -89,6 +89,7 @@
             this.buttonRepackGame.TabIndex = 3;
             this.buttonRepackGame.Text = "Repack game files";
             this.buttonRepackGame.UseVisualStyleBackColor = true;
+            this.buttonRepackGame.Click += new System.EventHandler(this.buttonRepackGame_Click);
             // 
             // buttonRepackIso
             // 

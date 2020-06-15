@@ -11,7 +11,7 @@ namespace ToradoraTranslateTool
 {
     class DatTools
     {
-        public static void Extract(string datPath)
+        public static void ExtractDat(string datPath)
         {
             string newPath = Path.Combine(Application.StartupPath, @"Data\DatWorker\", Path.GetFileName(datPath));
             File.Copy(datPath, newPath, true);
@@ -24,7 +24,7 @@ namespace ToradoraTranslateTool
             myProc.WaitForExit();
         }
 
-        public static void Repack(string lstPath)
+        public static void RepackDat(string lstPath)
         {
             Process myProc = new Process();
             myProc.StartInfo.FileName = Path.Combine(Application.StartupPath, @"Data\DatWorker\Dat Worker.exe");
@@ -34,5 +34,6 @@ namespace ToradoraTranslateTool
 
             myProc.WaitForExit();
         }
+
     }
 }

@@ -16,7 +16,7 @@ namespace ToradoraTranslateTool
     public partial class FormTranslation : Form
     {
         string currentFile;
-        string mainFilePath = Path.Combine(Application.StartupPath, "Translation.json");
+        public string mainFilePath = Path.Combine(Application.StartupPath, "Translation.json");
 
         public FormTranslation()
         {
