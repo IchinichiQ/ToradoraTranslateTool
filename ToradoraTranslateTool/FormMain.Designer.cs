@@ -1,6 +1,6 @@
 ﻿namespace ToradoraTranslateTool
 {
-    partial class Form1
+    partial class FormMain
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.buttonExtractIso = new System.Windows.Forms.Button();
             this.buttonExtractGame = new System.Windows.Forms.Button();
             this.buttonTranslate = new System.Windows.Forms.Button();
-            this.buttonRepackgame = new System.Windows.Forms.Button();
+            this.buttonRepackGame = new System.Windows.Forms.Button();
             this.buttonRepackIso = new System.Windows.Forms.Button();
             this.buttonExtractIsoHelp = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
@@ -78,16 +78,17 @@
             this.buttonTranslate.TabIndex = 2;
             this.buttonTranslate.Text = "Translate strings";
             this.buttonTranslate.UseVisualStyleBackColor = true;
+            this.buttonTranslate.Click += new System.EventHandler(this.buttonTranslate_Click);
             // 
-            // buttonRepackgame
+            // buttonRepackGame
             // 
-            this.buttonRepackgame.Enabled = false;
-            this.buttonRepackgame.Location = new System.Drawing.Point(8, 149);
-            this.buttonRepackgame.Name = "buttonRepackgame";
-            this.buttonRepackgame.Size = new System.Drawing.Size(115, 32);
-            this.buttonRepackgame.TabIndex = 3;
-            this.buttonRepackgame.Text = "Repack game files";
-            this.buttonRepackgame.UseVisualStyleBackColor = true;
+            this.buttonRepackGame.Enabled = false;
+            this.buttonRepackGame.Location = new System.Drawing.Point(8, 149);
+            this.buttonRepackGame.Name = "buttonRepackGame";
+            this.buttonRepackGame.Size = new System.Drawing.Size(115, 32);
+            this.buttonRepackGame.TabIndex = 3;
+            this.buttonRepackGame.Text = "Repack game files";
+            this.buttonRepackGame.UseVisualStyleBackColor = true;
             // 
             // buttonRepackIso
             // 
@@ -176,7 +177,7 @@
             this.panel1.Controls.Add(this.button7);
             this.panel1.Controls.Add(this.buttonExtractIsoHelp);
             this.panel1.Controls.Add(this.buttonRepackIso);
-            this.panel1.Controls.Add(this.buttonRepackgame);
+            this.panel1.Controls.Add(this.buttonRepackGame);
             this.panel1.Controls.Add(this.buttonTranslate);
             this.panel1.Controls.Add(this.buttonExtractGame);
             this.panel1.Controls.Add(this.buttonExtractIso);
@@ -190,7 +191,7 @@
             this.timerWork.Interval = 500;
             this.timerWork.Tick += new System.EventHandler(this.timerWork_Tick);
             // 
-            // Form1
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -200,7 +201,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ToradoraTranslateTool";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -214,7 +215,7 @@
         private System.Windows.Forms.Button buttonExtractIso;
         private System.Windows.Forms.Button buttonExtractGame;
         private System.Windows.Forms.Button buttonTranslate;
-        private System.Windows.Forms.Button buttonRepackgame;
+        private System.Windows.Forms.Button buttonRepackGame;
         private System.Windows.Forms.Button buttonRepackIso;
         private System.Windows.Forms.Button buttonExtractIsoHelp;
         private System.Windows.Forms.Button button7;

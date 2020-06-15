@@ -12,9 +12,9 @@ using System.Threading;
 
 namespace ToradoraTranslateTool
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
-        public Form1()
+        public FormMain()
         {
             InitializeComponent();
             EnableButtons();
@@ -33,8 +33,11 @@ namespace ToradoraTranslateTool
             buttonExtractIso.Enabled = true;
             if (File.Exists(Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "resource.dat"))) // If iso already extracted, enable next step button
                 buttonExtractGame.Enabled = true;
-            if (File.Exists(Path.Combine(Application.StartupPath, "Data", "Txt", "utf16.txt", "utf16.txt"))) // If game files already extracted, enable next step button
+            if (File.Exists(Path.Combine(Application.StartupPath, "Data", "Txt", "utf16.txt", "utf16.txt")))
+            {
                 buttonTranslate.Enabled = true;
+                buttonRepackGame.Enabled = true;
+            }
         }
 
         private void DisableButtons()
@@ -43,7 +46,7 @@ namespace ToradoraTranslateTool
             buttonExtractGame.Enabled = false;
             buttonExtractGame.Enabled = false;
             buttonTranslate.Enabled = false;
-            buttonRepackgame.Enabled = false;
+            buttonRepackGame.Enabled = false;
             buttonRepackIso.Enabled = false;
         }
 
@@ -80,6 +83,13 @@ namespace ToradoraTranslateTool
             EnableButtons();
         }
 
+        private void buttonTranslate_Click(object sender, EventArgs e)
+        {
+            FormTranslation myForm = new FormTranslation();
+            myForm.Show();
+            
+        }
+
         private void ChangeStatus(bool isWorking)
         {
             if (isWorking)
@@ -101,5 +111,6 @@ namespace ToradoraTranslateTool
             else
                 labelWork.Text = "Working";        
         }
+
     }
 }
