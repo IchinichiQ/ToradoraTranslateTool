@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 using OBJEditor;
@@ -14,6 +13,8 @@ namespace ToradoraTranslateTool
 {
     class ObjTools
     {
+        static string mainFilePath = Path.Combine(Application.StartupPath, "Translation.json");
+        static string toolsDirectory = Path.Combine(Application.StartupPath, "Data", "DatWorker", "Workspace");
 
         public static void ProcessObjGz(string directoryPath)
         {
@@ -26,20 +27,21 @@ namespace ToradoraTranslateTool
 
             foreach (string archive in archives)
             {
+                if (Path.GetFileName(archive).EndsWith("AAA0") || Path.GetFileName(archive) == "STARTPOINT.obj.gz") // Such files can't be translated
+                    continue;
+
                 string newPath = Path.Combine(Application.StartupPath, "Data", "Obj", Path.GetFileNameWithoutExtension(archive), Path.GetFileName(archive)); // Data\Obj\%obj name%\%obj archive%
                 Directory.CreateDirectory(Path.GetDirectoryName(newPath));
                 File.Copy(archive, newPath, true);
                 File.WriteAllText(Path.Combine(Application.StartupPath, "Data", "Obj", Path.GetFileNameWithoutExtension(archive), Path.GetFileNameWithoutExtension(archive) + ".txt"), archive.Replace(Application.StartupPath, "")); // Write relative path to the original file in Data\Obj\%obj name%\%obj name%.txt
 
-                SevenZipExtractor mySze = new SevenZipExtractor(newPath);
-                mySze.ExtractArchive(Path.GetDirectoryName(newPath)); // Extract archive to Data\Obj\%obj name%\
-                mySze.Dispose();
-
-                try
-                {
-                    File.Move(newPath.Replace(".gz", ".tar"), newPath.Replace(".gz", "")); // SevenZip has bug, it is writes a file as "xxx.obj.tar", while it must be "xxx.obj"
-                }
-                catch { }
+                Process myProc = new Process();
+                myProc.StartInfo.FileName = Path.Combine(toolsDirectory, "gzip.exe");
+                myProc.StartInfo.Arguments = "-d -f \"" + newPath + "\""; // -d for decompress, -f (force) for overwrite 
+                myProc.StartInfo.WorkingDirectory = toolsDirectory;
+                myProc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                myProc.Start();
+                myProc.WaitForExit();
             }
         }
 
@@ -50,26 +52,36 @@ namespace ToradoraTranslateTool
 
             SevenZipExtractor.SetLibraryPath(Path.Combine(Application.StartupPath, "7z.dll"));
 
-            string archive = Path.Combine(directoryPath, "Txt", "utf16.txt.gz"); // We need only one file
+            string archive = Path.Combine(directoryPath, "text", "utf16.txt.gz"); // We need only one file
 
             string newPath = Path.Combine(Application.StartupPath, "Data", "Txt", Path.GetFileNameWithoutExtension(archive), Path.GetFileName(archive)); // Data\Txt\%txt name%\%txt archive%
             Directory.CreateDirectory(Path.GetDirectoryName(newPath));
             File.Copy(archive, newPath, true);
             File.WriteAllText(Path.Combine(Application.StartupPath, "Data", "Txt", Path.GetFileNameWithoutExtension(archive), Path.GetFileNameWithoutExtension(archive) + ".txt"), archive.Replace(Application.StartupPath, "")); // Write relative path to the original file in Data\Txt\%txt name%\%txt name%.txt
 
-            SevenZipExtractor mySze = new SevenZipExtractor(newPath);
-            mySze.ExtractArchive(Path.GetDirectoryName(newPath));
-            mySze.Dispose();
-
-            try
-            {
-                File.Move(newPath.Replace(".gz", ".tar"), newPath.Replace(".gz", "")); // SevenZip has bug, it is writes a file as "xxx.txt.tar", while it must be "xxx.txt"
-            }
-            catch { }
+            Process myProc = new Process();
+            myProc.StartInfo.FileName = Path.Combine(toolsDirectory, "gzip.exe");
+            myProc.StartInfo.Arguments = "-d -f \"" + newPath + "\""; // -d for decompress, -f (force) for overwrite 
+            myProc.StartInfo.WorkingDirectory = toolsDirectory;
+            myProc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            myProc.Start();
+            myProc.WaitForExit();
         }
 
-        static string mainFilePath = Path.Combine(Application.StartupPath, "Translation.json");
-        static string toolsDirectory = Path.Combine(Application.StartupPath, "Data", "DatWorker", "Workspace");
+        public static void ProcessSeekmap(string firstDirectory)
+        {
+            File.Copy(Path.Combine(firstDirectory, "seekmap.dat"), Path.Combine(toolsDirectory, "seekmap.txt.gz"), true);
+
+            Process myProc = new Process();
+            myProc.StartInfo.FileName = Path.Combine(toolsDirectory, "gzip.exe");
+            myProc.StartInfo.Arguments = "-d -f seekmap.txt.gz"; // -d for decompress, -f (force) for overwrite 
+            myProc.StartInfo.WorkingDirectory = toolsDirectory;
+            myProc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            myProc.Start();
+            myProc.WaitForExit();
+
+            File.Delete(Path.Combine(toolsDirectory, "seekmap.txt.gz"));
+        }
 
         public static void RepackObj()
         {
@@ -96,8 +108,9 @@ namespace ToradoraTranslateTool
 
                     Process myProc = new Process();
                     myProc.StartInfo.FileName = Path.Combine(toolsDirectory, "gzip.exe");
-                    myProc.StartInfo.Arguments = "-n9 " + name; // Without -n9 the game will freeze
+                    myProc.StartInfo.Arguments = "-n9 -f " + name; // Without -n9 the game will freeze
                     myProc.StartInfo.WorkingDirectory = toolsDirectory;
+                    myProc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                     myProc.Start();
                     myProc.WaitForExit();
 
@@ -108,35 +121,63 @@ namespace ToradoraTranslateTool
             }
         }
 
+        public static void RepackTxt()
+        {
+            List<String> directories = new List<string>();
+            directories.AddRange(Directory.GetDirectories(Path.Combine(Application.StartupPath, "Data", "Txt")).Select(Path.GetFileName));
+
+            JObject mainFile = JObject.Parse(File.ReadAllText(mainFilePath));
+            foreach (string name in directories)
+            {
+                if (mainFile[name] != null)  // If json have translation for that file
+                {
+                    string filepath = Path.Combine(Application.StartupPath, "Data", "Txt", name, name);
+                    string[] fileLines = File.ReadAllLines(filepath, new UnicodeEncoding(false, false)); ;
+
+                    for (int i = 0; i < fileLines.Length; i++)
+                    {
+                        string translatedString = mainFile[name][i.ToString()].ToString();
+                        if (translatedString != "")
+                            fileLines[i] = translatedString;
+                    }
+
+                    File.WriteAllLines(Path.Combine(toolsDirectory, name), fileLines, new UnicodeEncoding(false, false));
+
+                    Process myProc = new Process();
+                    myProc.StartInfo.FileName = Path.Combine(toolsDirectory, "gzip.exe");
+                    myProc.StartInfo.Arguments = "-n9 -f " + name; // Without -n9 the game will freeze
+                    myProc.StartInfo.WorkingDirectory = toolsDirectory;
+                    myProc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    myProc.Start();
+                    myProc.WaitForExit();
+
+                    File.Delete(Path.Combine(toolsDirectory, name));
+
+                    File.Replace(Path.Combine(toolsDirectory, name + ".gz"), Application.StartupPath + File.ReadAllText(filepath + ".txt"), null);
+                }
+            }
+        }
+
         public static void RepackSeekmap(string resourcePath, string firstDirectory)
         {
-            File.Move(Path.Combine(firstDirectory, "seekmap.dat"), Path.Combine(toolsDirectory, "seekmap.txt.gz")); // seekmap.dat is a .gz archive with .txt file
-
+            File.Copy(resourcePath, Path.Combine(toolsDirectory, "RES.dat"), true); // RES.dat and seekmap.txt required for modseekmap.exe
             Process myProc = new Process();
-            myProc.StartInfo.FileName = Path.Combine(toolsDirectory, "gzip.exe");
-            myProc.StartInfo.Arguments = "-d seekmap.txt.gz"; // Without -n9 the game will freeze
+            myProc.StartInfo.FileName = Path.Combine(toolsDirectory, "modseekmap.exe"); // modseekmap generates seekmap.new file
             myProc.StartInfo.WorkingDirectory = toolsDirectory;
             myProc.Start();
             myProc.WaitForExit();
+            File.Move(Path.Combine(toolsDirectory, "seekmap.new"), Path.Combine(toolsDirectory, "seekmap.dat")); // rename seekmap.new to seekmap.dat
 
-            File.Copy(resourcePath, Path.Combine(toolsDirectory, "RES.dat")); // RES.dat and seekmap.txt required for modseekmap.exe
-            myProc = new Process();
-            myProc.StartInfo.FileName = Path.Combine(toolsDirectory, "modseekmap.exe");
-            myProc.StartInfo.WorkingDirectory = toolsDirectory;
-            myProc.Start();
-            myProc.WaitForExit();
-            File.Move(Path.Combine(toolsDirectory, "seekmap.new"), Path.Combine(toolsDirectory, "seekmap.dat")); // modseekmap generates seekmap.new file
-
-            myProc = new Process(); // compress seekmap.new to seekmap.dat
+            myProc = new Process(); // compress seekmap.dat to seekmap.dat.gz
             myProc.StartInfo.FileName = Path.Combine(toolsDirectory, "gzip.exe");
-            myProc.StartInfo.Arguments = "-n9 seekmap.dat"; // Without -n9 the game will freeze
+            myProc.StartInfo.Arguments = "-n9 -f seekmap.dat"; // Without -n9 the game will freeze
             myProc.StartInfo.WorkingDirectory = toolsDirectory;
             myProc.Start();
             myProc.WaitForExit();
-            File.Move(Path.Combine(toolsDirectory, "seekmap.dat.gz"), Path.Combine(firstDirectory, "seekmap.dat"));
+            File.Copy(Path.Combine(toolsDirectory, "seekmap.dat.gz"), Path.Combine(firstDirectory, "seekmap.dat"), true); // rename seekmap.dat.gz to seekmap.dat and move it to the directory where first.dat was unpacked
 
             File.Delete(Path.Combine(toolsDirectory, "RES.dat")); // Remove temp files
-            File.Delete(Path.Combine(toolsDirectory, "seekmap.txt"));
+            File.Delete(Path.Combine(toolsDirectory, "seekmap.dat.gz"));
         }
 
     }

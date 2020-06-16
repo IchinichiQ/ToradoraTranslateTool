@@ -62,11 +62,13 @@ namespace ToradoraTranslateTool
 
             currentFile = filename;
             string[] myStrings;
+            Dictionary<int, string> myNames = new Dictionary<int, string>();
             if (Path.GetExtension(currentFile) == ".obj")
             {
                 string filepath = Path.Combine(Application.StartupPath, "Data", "Obj", currentFile, currentFile);
                 OBJHelper myHelper = new OBJHelper(File.ReadAllBytes(filepath));
                 myStrings = myHelper.Import();
+                myNames = myHelper.Actors;
             }
             else // Else it is .txt file
             {
@@ -83,20 +85,20 @@ namespace ToradoraTranslateTool
             for (int i = 0; i < myStrings.Length; i++)
             {
                 string name = "";
-                string text = "";
+                string sentence = "";
                 string translated = "";
-                if (myStrings[i].IndexOf("「") > 0)
+                if (myStrings[i].StartsWith("「") && myStrings[i].EndsWith("」"))
                 {
-                    name = myStrings[i].Substring(0, myStrings[i].IndexOf("「")); // Get text before symbol "「"
-                    text = myStrings[i].Replace(name, ""); // Remove name from sentence
+                    name = myNames[i];
+                    sentence = myStrings[i]; 
                 }
                 else
-                    text = myStrings[i];
+                    sentence = myStrings[i];
 
                 if (haveTranslation)
                     translated = mainFile[currentFile][i.ToString()].ToString();
 
-                dataGridViewStrings.Rows.Add(name, text, translated);
+                dataGridViewStrings.Rows.Add(name, sentence, translated);
             }
         }
 
