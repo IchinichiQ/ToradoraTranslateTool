@@ -28,18 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTranslation));
             this.dataGridViewFiles = new System.Windows.Forms.DataGridView();
             this.ColumnFilename = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnProgress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewStrings = new System.Windows.Forms.DataGridView();
-            this.buttonFilesGridHelp = new System.Windows.Forms.Button();
-            this.buttonTextGridHelp = new System.Windows.Forms.Button();
             this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnOriginal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnTranslated = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonFilesGridHelp = new System.Windows.Forms.Button();
+            this.buttonTextGridHelp = new System.Windows.Forms.Button();
+            this.contextMenuStripStrings = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.itemExportStrings = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemImportStrings = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFiles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStrings)).BeginInit();
+            this.contextMenuStripStrings.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewFiles
@@ -93,6 +98,7 @@
             this.ColumnName,
             this.ColumnOriginal,
             this.ColumnTranslated});
+            this.dataGridViewStrings.ContextMenuStrip = this.contextMenuStripStrings;
             this.dataGridViewStrings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewStrings.Location = new System.Drawing.Point(179, 0);
             this.dataGridViewStrings.Name = "dataGridViewStrings";
@@ -100,26 +106,7 @@
             this.dataGridViewStrings.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridViewStrings.Size = new System.Drawing.Size(757, 561);
             this.dataGridViewStrings.TabIndex = 1;
-            // 
-            // buttonFilesGridHelp
-            // 
-            this.buttonFilesGridHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFilesGridHelp.Location = new System.Drawing.Point(139, 539);
-            this.buttonFilesGridHelp.Name = "buttonFilesGridHelp";
-            this.buttonFilesGridHelp.Size = new System.Drawing.Size(20, 20);
-            this.buttonFilesGridHelp.TabIndex = 6;
-            this.buttonFilesGridHelp.Text = "?";
-            this.buttonFilesGridHelp.UseVisualStyleBackColor = true;
-            // 
-            // buttonTextGridHelp
-            // 
-            this.buttonTextGridHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonTextGridHelp.Location = new System.Drawing.Point(896, 539);
-            this.buttonTextGridHelp.Name = "buttonTextGridHelp";
-            this.buttonTextGridHelp.Size = new System.Drawing.Size(20, 20);
-            this.buttonTextGridHelp.TabIndex = 7;
-            this.buttonTextGridHelp.Text = "?";
-            this.buttonTextGridHelp.UseVisualStyleBackColor = true;
+            this.dataGridViewStrings.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewStrings_CellMouseDown);
             // 
             // ColumnName
             // 
@@ -146,6 +133,48 @@
             this.ColumnTranslated.Name = "ColumnTranslated";
             this.ColumnTranslated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // buttonFilesGridHelp
+            // 
+            this.buttonFilesGridHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonFilesGridHelp.Location = new System.Drawing.Point(139, 539);
+            this.buttonFilesGridHelp.Name = "buttonFilesGridHelp";
+            this.buttonFilesGridHelp.Size = new System.Drawing.Size(20, 20);
+            this.buttonFilesGridHelp.TabIndex = 6;
+            this.buttonFilesGridHelp.Text = "?";
+            this.buttonFilesGridHelp.UseVisualStyleBackColor = true;
+            // 
+            // buttonTextGridHelp
+            // 
+            this.buttonTextGridHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonTextGridHelp.Location = new System.Drawing.Point(896, 539);
+            this.buttonTextGridHelp.Name = "buttonTextGridHelp";
+            this.buttonTextGridHelp.Size = new System.Drawing.Size(20, 20);
+            this.buttonTextGridHelp.TabIndex = 7;
+            this.buttonTextGridHelp.Text = "?";
+            this.buttonTextGridHelp.UseVisualStyleBackColor = true;
+            // 
+            // contextMenuStripStrings
+            // 
+            this.contextMenuStripStrings.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.itemExportStrings,
+            this.itemImportStrings});
+            this.contextMenuStripStrings.Name = "contextMenuStrip1";
+            this.contextMenuStripStrings.Size = new System.Drawing.Size(181, 70);
+            // 
+            // itemExportStrings
+            // 
+            this.itemExportStrings.Name = "itemExportStrings";
+            this.itemExportStrings.Size = new System.Drawing.Size(180, 22);
+            this.itemExportStrings.Text = "Export all strings...";
+            this.itemExportStrings.Click += new System.EventHandler(this.itemExportStrings_Click);
+            // 
+            // itemImportStrings
+            // 
+            this.itemImportStrings.Name = "itemImportStrings";
+            this.itemImportStrings.Size = new System.Drawing.Size(180, 22);
+            this.itemImportStrings.Text = "Import strings...";
+            this.itemImportStrings.Click += new System.EventHandler(this.itemImportStrings_Click);
+            // 
             // FormTranslation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -163,6 +192,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormTranslation_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFiles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStrings)).EndInit();
+            this.contextMenuStripStrings.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -178,5 +208,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnOriginal;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnTranslated;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripStrings;
+        private System.Windows.Forms.ToolStripMenuItem itemExportStrings;
+        private System.Windows.Forms.ToolStripMenuItem itemImportStrings;
     }
 }
