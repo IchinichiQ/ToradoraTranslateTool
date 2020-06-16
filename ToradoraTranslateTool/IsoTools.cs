@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using DiscUtils.Iso9660;
+﻿using System.IO;
 using SevenZip;
 using System.Windows.Forms;
 
@@ -22,11 +16,6 @@ namespace ToradoraTranslateTool
             SevenZipExtractor mySze = new SevenZipExtractor(isoPath);
             mySze.ExtractArchive(Path.Combine(Application.StartupPath, "Data", "Iso"));
             mySze.Dispose();
-        }
-
-        public static void Create(string isoPath)
-        {
-            // Too early
         }
     }
 }

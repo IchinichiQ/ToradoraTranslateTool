@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading;
+using System.Diagnostics;
 
 namespace ToradoraTranslateTool
 {
@@ -23,20 +24,23 @@ namespace ToradoraTranslateTool
         // TODO:
         // 1. Extract ISO            ✓
         // 2. Extract .dat           ✓
-        // 3. Edit .obj
+        // 3. Edit .obj              ✓
         // 4. Repack .dat            ✓
-        // 5. Create new seekmap
-        // 6. Create new ISO
+        // 5. Create new seekmap     ✓
+        // 6. Create new ISO         ✘ (Using UMDGen)
 
         private void EnableButtons()
         {
             buttonExtractIso.Enabled = true;
-            if (File.Exists(Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "resource.dat"))) // If iso already extracted, enable next step button
+            if (File.Exists(Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "resource.dat"))) // If iso already extracted, enable available steps
+            {
                 buttonExtractGame.Enabled = true;
+            }
             if (File.Exists(Path.Combine(Application.StartupPath, "Data", "Txt", "utf16.txt", "utf16.txt")))
             {
                 buttonTranslate.Enabled = true;
                 buttonRepackGame.Enabled = true;
+                buttonRepackIso.Enabled = true;
             }
         }
 
@@ -101,6 +105,11 @@ namespace ToradoraTranslateTool
 
             ChangeStatus(false);
             EnableButtons();
+        }
+
+        private void buttonRepackIso_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(Application.StartupPath, "UMDGen.exe"));
         }
 
         private void ChangeStatus(bool isWorking)

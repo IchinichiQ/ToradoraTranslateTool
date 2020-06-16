@@ -100,6 +100,7 @@
             this.buttonRepackIso.TabIndex = 4;
             this.buttonRepackIso.Text = "Repack ISO";
             this.buttonRepackIso.UseVisualStyleBackColor = true;
+            this.buttonRepackIso.Click += new System.EventHandler(this.buttonRepackIso_Click);
             // 
             // buttonExtractIsoHelp
             // 

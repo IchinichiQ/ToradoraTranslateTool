@@ -135,6 +135,9 @@
     </Content>
     <Content Include="OBJEditor.dll" />
     <Content Include="Taiga.png" />
+    <Content Include="UMDGen.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="white.ico" />
   </ItemGroup>
   <ItemGroup>
