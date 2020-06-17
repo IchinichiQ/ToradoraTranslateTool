@@ -155,11 +155,14 @@
     <Content Include="Data\DatWorker\Workspace\Tenoritool\tenoritool.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="OBJEditor.dll" />
-    <Content Include="Taiga.png" />
-    <Content Include="UMDGen.exe">
+    <Content Include="Data\Mkisofs\cygwin1.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\Mkisofs\mkisofs.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="OBJEditor.dll" />
+    <Content Include="Taiga.png" />
     <Content Include="white.ico" />
   </ItemGroup>
   <ItemGroup>

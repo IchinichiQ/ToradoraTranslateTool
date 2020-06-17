@@ -21,8 +21,6 @@ namespace ToradoraTranslateTool
             if (!Directory.Exists(Path.Combine(Application.StartupPath, "Data", "Obj")))
                 Directory.CreateDirectory(Path.Combine(Application.StartupPath, "Data", "Obj"));
 
-            SevenZipExtractor.SetLibraryPath(Path.Combine(Application.StartupPath, "7z.dll"));
-
             string[] archives = Directory.GetFiles(directoryPath, "*.obj.gz", SearchOption.AllDirectories);
 
             foreach (string archive in archives)
@@ -33,8 +31,7 @@ namespace ToradoraTranslateTool
                 string newPath = Path.Combine(Application.StartupPath, "Data", "Obj", Path.GetFileNameWithoutExtension(archive), Path.GetFileName(archive)); // Data\Obj\%obj name%\%obj archive%
                 Directory.CreateDirectory(Path.GetDirectoryName(newPath));
                 File.Copy(archive, newPath, true);
-                File.WriteAllText(Path.Combine(Application.StartupPath, "Data", "Obj", Path.GetFileNameWithoutExtension(archive), Path.GetFileNameWithoutExtension(archive) + ".txt"), archive.Replace(Application.StartupPath, "")); // Write relative path to the original file in Data\Obj\%obj name%\%obj name%.txt
-
+                
                 Process myProc = new Process();
                 myProc.StartInfo.FileName = Path.Combine(toolsDirectory, "gzip.exe");
                 myProc.StartInfo.Arguments = "-d -f \"" + newPath + "\""; // -d for decompress, -f (force) for overwrite 
@@ -50,15 +47,12 @@ namespace ToradoraTranslateTool
             if (!Directory.Exists(Path.Combine(Application.StartupPath, "Data", "Txt")))
                 Directory.CreateDirectory(Path.Combine(Application.StartupPath, "Data", "Txt"));
 
-            SevenZipExtractor.SetLibraryPath(Path.Combine(Application.StartupPath, "7z.dll"));
-
             string archive = Path.Combine(directoryPath, "text", "utf16.txt.gz"); // We need only one file
 
             string newPath = Path.Combine(Application.StartupPath, "Data", "Txt", Path.GetFileNameWithoutExtension(archive), Path.GetFileName(archive)); // Data\Txt\%txt name%\%txt archive%
             Directory.CreateDirectory(Path.GetDirectoryName(newPath));
             File.Copy(archive, newPath, true);
-            File.WriteAllText(Path.Combine(Application.StartupPath, "Data", "Txt", Path.GetFileNameWithoutExtension(archive), Path.GetFileNameWithoutExtension(archive) + ".txt"), archive.Replace(Application.StartupPath, "")); // Write relative path to the original file in Data\Txt\%txt name%\%txt name%.txt
-
+ 
             Process myProc = new Process();
             myProc.StartInfo.FileName = Path.Combine(toolsDirectory, "gzip.exe");
             myProc.StartInfo.Arguments = "-d -f \"" + newPath + "\""; // -d for decompress, -f (force) for overwrite 

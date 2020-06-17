@@ -27,7 +27,7 @@ namespace ToradoraTranslateTool
         // 3. Edit .obj              ✓
         // 4. Repack .dat            ✓
         // 5. Create new seekmap     ✓
-        // 6. Create new ISO         ✘ (Using UMDGen)
+        // 6. Create new ISO         ✓
 
         private void EnableButtons()
         {
@@ -67,7 +67,7 @@ namespace ToradoraTranslateTool
                         ChangeStatus(true);
                         DisableButtons();
 
-                        await Task.Run(() => IsoTools.Extract(openFileDialog.FileName));
+                        await Task.Run(() => IsoTools.ExtractIso(openFileDialog.FileName));
 
                         ChangeStatus(false);
                         EnableButtons();
@@ -144,11 +144,17 @@ namespace ToradoraTranslateTool
             }
         }
 
-        private void buttonRepackIso_Click(object sender, EventArgs e)
+        private async void buttonRepackIso_Click(object sender, EventArgs e)
         {
             try
             {
-                Process.Start(Path.Combine(Application.StartupPath, "UMDGen.exe"));
+                ChangeStatus(true);
+                DisableButtons();
+
+                await Task.Run(() => IsoTools.RepackIso(Path.Combine(Application.StartupPath, "Data", "Iso")));
+
+                ChangeStatus(false);
+                EnableButtons();
             }
             catch (Exception ex)
             {
@@ -211,7 +217,7 @@ namespace ToradoraTranslateTool
 
         private void buttonRepackIsoHelp_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This stage will launch UMDGen where you should repack ISO." + Environment.NewLine + "Just drag and drop the UMD_DATA.BIN file and the PSP_GAME folder from directory \\Data\\Iso\\ into the UMDGen window, and click the save button", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("This stage will repack ISO and save it in the program folder", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
