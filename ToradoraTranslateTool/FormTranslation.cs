@@ -22,40 +22,54 @@ namespace ToradoraTranslateTool
         {
             InitializeComponent();
 
-            if (!File.Exists(mainFilePath))
-                File.WriteAllText(mainFilePath, "{ }");
-
-            List<String> directories = new List<string>();
-            directories.AddRange(Directory.GetDirectories(Path.Combine(Application.StartupPath, "Data", "Txt")).Select(Path.GetFileName)); // Get all directories with .obj and .txt files
-            directories.AddRange(Directory.GetDirectories(Path.Combine(Application.StartupPath, "Data", "Obj")).Select(Path.GetFileName));
-
-            dataGridViewFiles.Rows.Add("Total: ", "0%");
-
-            JObject mainFile = JObject.Parse(File.ReadAllText(mainFilePath));
-            foreach (string name in directories) // Adding files to the table
+            try
             {
-                int translationPercent = 0;
-                if (mainFile[name] != null)  // If json have saved translation
+                if (!File.Exists(mainFilePath))
+                    File.WriteAllText(mainFilePath, "{ }");
+
+                List<String> directories = new List<string>();
+                directories.AddRange(Directory.GetDirectories(Path.Combine(Application.StartupPath, "Data", "Txt")).Select(Path.GetFileName)); // Get all directories with .obj and .txt files
+                directories.AddRange(Directory.GetDirectories(Path.Combine(Application.StartupPath, "Data", "Obj")).Select(Path.GetFileName));
+
+                dataGridViewFiles.Rows.Add("Total: ", "0%");
+
+                JObject mainFile = JObject.Parse(File.ReadAllText(mainFilePath));
+                foreach (string name in directories) // Adding files to the table
                 {
-                    int stringCount = mainFile[name].Children().Children().Count(); // scary
-                    int translatedCount = 0;
-                    for (int i = 0; i < stringCount; i++)
+                    int translationPercent = 0;
+                    if (mainFile[name] != null)  // If json have saved translation
                     {
-                        if (mainFile[name][i.ToString()].ToString() != "")
-                            translatedCount++;
+                        int stringCount = mainFile[name].Children().Children().Count(); // scary
+                        int translatedCount = 0;
+                        for (int i = 0; i < stringCount; i++)
+                        {
+                            if (mainFile[name][i.ToString()].ToString() != "")
+                                translatedCount++;
+                        }
+                        translationPercent = (int)Math.Round((double)(translatedCount * 100) / stringCount);
                     }
-                    translationPercent = (int)Math.Round((double)(translatedCount * 100) / stringCount);
+
+                    dataGridViewFiles.Rows.Add(name, translationPercent + "%");
                 }
-                
-                dataGridViewFiles.Rows.Add(name, translationPercent + "%");
+                updateTotalPercent();
             }
-            updateTotalPercent();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error!" + Environment.NewLine + ex.Message, "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void dataGridViewFiles_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex > 0) // Ignore row with total translation percent
-                LoadFile(dataGridViewFiles[0, e.RowIndex].Value.ToString());
+            try
+            {
+                if (e.RowIndex > 0) // Ignore row with total translation percent
+                    LoadFile(dataGridViewFiles[0, e.RowIndex].Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error!" + Environment.NewLine + ex.Message, "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void LoadFile(string filename)
@@ -151,65 +165,93 @@ namespace ToradoraTranslateTool
 
         private void FormTranslation_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (currentFile != null)
-                SaveProgress();
+            try
+            {
+                if (currentFile != null)
+                    SaveProgress();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error!" + Environment.NewLine + ex.Message, "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void dataGridViewStrings_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.ColumnIndex != -1 && e.RowIndex != -1 && e.Button == MouseButtons.Right)
+            try
             {
-                DataGridViewCell c = (sender as DataGridView)[e.ColumnIndex, e.RowIndex];
-                c.DataGridView.ClearSelection();
-                c.DataGridView.CurrentCell = c;
-                c.Selected = true;
+                if (e.ColumnIndex != -1 && e.RowIndex != -1 && e.Button == MouseButtons.Right)
+                {
+                    DataGridViewCell c = (sender as DataGridView)[e.ColumnIndex, e.RowIndex];
+                    c.DataGridView.ClearSelection();
+                    c.DataGridView.CurrentCell = c;
+                    c.Selected = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error!" + Environment.NewLine + ex.Message, "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void itemExportStrings_Click(object sender, EventArgs e)
         {
-            if (currentFile == null)
+            try
             {
-                MessageBox.Show("First select the file!", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            using (SaveFileDialog mySaveFileDialog = new SaveFileDialog())
-            {
-                mySaveFileDialog.Filter = "Text file (*.txt) | *.txt";
-
-                if (mySaveFileDialog.ShowDialog() == DialogResult.OK)
+                if (currentFile == null)
                 {
-                    string[] myStrings = new string[dataGridViewStrings.Rows.Count];
-                    for (int i = 0; i < myStrings.Length; i++)
-                    {
-                        myStrings[i] = dataGridViewStrings.Rows[i].Cells[0].Value?.ToString() + ";" + dataGridViewStrings.Rows[i].Cells[1].Value?.ToString() + ";" + dataGridViewStrings.Rows[i].Cells[2].Value?.ToString();
-                    }
-                    File.WriteAllLines(mySaveFileDialog.FileName, myStrings);
+                    MessageBox.Show("First select the file!", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
+
+                using (SaveFileDialog mySaveFileDialog = new SaveFileDialog())
+                {
+                    mySaveFileDialog.Filter = "Text file (*.txt) | *.txt";
+
+                    if (mySaveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string[] myStrings = new string[dataGridViewStrings.Rows.Count];
+                        for (int i = 0; i < myStrings.Length; i++)
+                        {
+                            myStrings[i] = dataGridViewStrings.Rows[i].Cells[0].Value?.ToString() + ";" + dataGridViewStrings.Rows[i].Cells[1].Value?.ToString() + ";" + dataGridViewStrings.Rows[i].Cells[2].Value?.ToString();
+                        }
+                        File.WriteAllLines(mySaveFileDialog.FileName, myStrings);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error!" + Environment.NewLine + ex.Message, "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void itemImportStrings_Click(object sender, EventArgs e)
         {
-            if (currentFile == null)
+            try
             {
-                MessageBox.Show("First select the file!", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            using (OpenFileDialog myOpenFileDialog = new OpenFileDialog())
-            {
-                myOpenFileDialog.Filter = "Text file (*.txt) | *.txt";
-
-                if (myOpenFileDialog.ShowDialog() == DialogResult.OK)
+                if (currentFile == null)
                 {
-                    string[] myStrings = File.ReadAllLines(myOpenFileDialog.FileName);
-                    for (int i = 0; i < myStrings.Length; i++)
+                    MessageBox.Show("First select the file!", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                using (OpenFileDialog myOpenFileDialog = new OpenFileDialog())
+                {
+                    myOpenFileDialog.Filter = "Text file (*.txt) | *.txt";
+
+                    if (myOpenFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        dataGridViewStrings.Rows[i].Cells[2].Value = myStrings[i];
+                        string[] myStrings = File.ReadAllLines(myOpenFileDialog.FileName);
+                        for (int i = 0; i < myStrings.Length; i++)
+                        {
+                            dataGridViewStrings.Rows[i].Cells[2].Value = myStrings[i];
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error!" + Environment.NewLine + ex.Message, "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -218,7 +260,7 @@ namespace ToradoraTranslateTool
             int currentPercent = 0;
             for (int i = 1; i < dataGridViewFiles.Rows.Count; i++)
             {
-                currentPercent += Int32.Parse(dataGridViewFiles.Rows[i].Cells[1].Value?.ToString().Replace("%",""));
+                currentPercent += Int32.Parse(dataGridViewFiles.Rows[i].Cells[1].Value?.ToString().Replace("%", ""));
             }
             int currentTotalPercent = (int)Math.Round((double)(currentPercent * 100) / ((dataGridViewFiles.Rows.Count - 1) * 100));
             dataGridViewFiles.Rows[0].Cells[1].Value = currentTotalPercent.ToString() + "%";

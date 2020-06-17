@@ -56,64 +56,106 @@ namespace ToradoraTranslateTool
 
         private async void buttonExtractIso_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            try
             {
-                openFileDialog.Filter = "Toradora ISO (*.iso) | *.iso";
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
                 {
-                    ChangeStatus(true);
-                    DisableButtons();
+                    openFileDialog.Filter = "Toradora ISO (*.iso) | *.iso";
 
-                    await Task.Run(() => IsoTools.Extract(openFileDialog.FileName));
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        ChangeStatus(true);
+                        DisableButtons();
 
-                    ChangeStatus(false);
-                    EnableButtons();
+                        await Task.Run(() => IsoTools.Extract(openFileDialog.FileName));
+
+                        ChangeStatus(false);
+                        EnableButtons();
+
+                        MessageBox.Show("Iso extraction completed", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                ChangeStatus(false);
+                EnableButtons();
+                MessageBox.Show("Error!" + Environment.NewLine + ex.Message, "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private async void buttonExtractGame_Click(object sender, EventArgs e)
         {
-            ChangeStatus(true);
-            DisableButtons();
+            try
+            {
+                ChangeStatus(true);
+                DisableButtons();
 
-            await Task.Run(() => DatTools.ExtractDat(Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "resource.dat")));
-            await Task.Run(() => DatTools.ExtractDat(Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "first.dat")));
-            await Task.Run(() => ObjTools.ProcessObjGz(Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource")));
-            await Task.Run(() => ObjTools.ProcessTxtGz(Path.Combine(Application.StartupPath, "Data", "DatWorker", "first")));
-            await Task.Run(() => ObjTools.ProcessSeekmap(Path.Combine(Application.StartupPath, "Data", "DatWorker", "first")));
+                await Task.Run(() => DatTools.ExtractDat(Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "resource.dat")));
+                await Task.Run(() => DatTools.ExtractDat(Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "first.dat")));
+                await Task.Run(() => ObjTools.ProcessObjGz(Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource")));
+                await Task.Run(() => ObjTools.ProcessTxtGz(Path.Combine(Application.StartupPath, "Data", "DatWorker", "first")));
+                await Task.Run(() => ObjTools.ProcessSeekmap(Path.Combine(Application.StartupPath, "Data", "DatWorker", "first")));
 
-            ChangeStatus(false);
-            EnableButtons();
+                ChangeStatus(false);
+                EnableButtons();
+
+                MessageBox.Show("Game files extraction completed", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                ChangeStatus(false);
+                EnableButtons();
+                MessageBox.Show("Error!" + Environment.NewLine + ex.Message, "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void buttonTranslate_Click(object sender, EventArgs e)
         {
             FormTranslation myForm = new FormTranslation();
-            myForm.Show();        
+            myForm.Show();
         }
 
         private async void buttonRepackGame_Click(object sender, EventArgs e)
         {
-            ChangeStatus(true);
-            DisableButtons();
+            try
+            {
+                ChangeStatus(true);
+                DisableButtons();
 
-            await Task.Run(() => ObjTools.RepackObj());
-            await Task.Run(() => ObjTools.RepackTxt());
-            await Task.Run(() => DatTools.RepackDat(Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource.dat-LstOrder.lst")));
-            await Task.Run(() => ObjTools.RepackSeekmap(Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource.dat"), Path.Combine(Application.StartupPath, "Data", "DatWorker", "first")));
-            await Task.Run(() => DatTools.RepackDat(Path.Combine(Application.StartupPath, "Data", "DatWorker", "first.dat-LstOrder.lst")));
-            await Task.Run(() => File.Copy(Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource.dat"), Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "resource.dat"), true));
-            await Task.Run(() => File.Copy(Path.Combine(Application.StartupPath, "Data", "DatWorker", "first.dat"), Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "first.dat"), true));
+                await Task.Run(() => ObjTools.RepackObj());
+                await Task.Run(() => ObjTools.RepackTxt());
+                await Task.Run(() => DatTools.RepackDat(Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource.dat-LstOrder.lst")));
+                await Task.Run(() => ObjTools.RepackSeekmap(Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource.dat"), Path.Combine(Application.StartupPath, "Data", "DatWorker", "first")));
+                await Task.Run(() => DatTools.RepackDat(Path.Combine(Application.StartupPath, "Data", "DatWorker", "first.dat-LstOrder.lst")));
+                await Task.Run(() => File.Copy(Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource.dat"), Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "resource.dat"), true));
+                await Task.Run(() => File.Copy(Path.Combine(Application.StartupPath, "Data", "DatWorker", "first.dat"), Path.Combine(Application.StartupPath, "Data", "Iso", "PSP_GAME", "USRDIR", "first.dat"), true));
 
-            ChangeStatus(false);
-            EnableButtons();
+                ChangeStatus(false);
+                EnableButtons();
+
+                MessageBox.Show("Game files repacking completed", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                ChangeStatus(false);
+                EnableButtons();
+                MessageBox.Show("Error!" + Environment.NewLine + ex.Message, "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void buttonRepackIso_Click(object sender, EventArgs e)
         {
-            Process.Start(Path.Combine(Application.StartupPath, "UMDGen.exe"));
+            try
+            {
+                Process.Start(Path.Combine(Application.StartupPath, "UMDGen.exe"));
+            }
+            catch (Exception ex)
+            {
+                ChangeStatus(false);
+                EnableButtons();
+                MessageBox.Show("Error!" + Environment.NewLine + ex.Message, "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ChangeStatus(bool isWorking)
@@ -135,8 +177,16 @@ namespace ToradoraTranslateTool
             if (labelWork.Text != "Working...")
                 labelWork.Text += ".";
             else
-                labelWork.Text = "Working";        
+                labelWork.Text = "Working";
         }
 
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (timerWork.Enabled)
+            {
+                e.Cancel = true;
+                MessageBox.Show("Wait until the work is done!", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
