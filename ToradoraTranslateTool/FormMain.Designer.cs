@@ -36,10 +36,10 @@
             this.buttonRepackGame = new System.Windows.Forms.Button();
             this.buttonRepackIso = new System.Windows.Forms.Button();
             this.buttonExtractIsoHelp = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
+            this.buttonExtractGameHelp = new System.Windows.Forms.Button();
+            this.buttonRepackGameHelp = new System.Windows.Forms.Button();
+            this.buttonTranslateHelp = new System.Windows.Forms.Button();
+            this.buttonRepackIsoHelp = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelWork = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -110,42 +110,47 @@
             this.buttonExtractIsoHelp.TabIndex = 5;
             this.buttonExtractIsoHelp.Text = "?";
             this.buttonExtractIsoHelp.UseVisualStyleBackColor = true;
+            this.buttonExtractIsoHelp.Click += new System.EventHandler(this.buttonExtractIsoHelp_Click);
             // 
-            // button7
+            // buttonExtractGameHelp
             // 
-            this.button7.Location = new System.Drawing.Point(127, 85);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(20, 20);
-            this.button7.TabIndex = 6;
-            this.button7.Text = "?";
-            this.button7.UseVisualStyleBackColor = true;
+            this.buttonExtractGameHelp.Location = new System.Drawing.Point(127, 85);
+            this.buttonExtractGameHelp.Name = "buttonExtractGameHelp";
+            this.buttonExtractGameHelp.Size = new System.Drawing.Size(20, 20);
+            this.buttonExtractGameHelp.TabIndex = 6;
+            this.buttonExtractGameHelp.Text = "?";
+            this.buttonExtractGameHelp.UseVisualStyleBackColor = true;
+            this.buttonExtractGameHelp.Click += new System.EventHandler(this.buttonExtractGameHelp_Click);
             // 
-            // button8
+            // buttonRepackGameHelp
             // 
-            this.button8.Location = new System.Drawing.Point(127, 161);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(20, 20);
-            this.button8.TabIndex = 8;
-            this.button8.Text = "?";
-            this.button8.UseVisualStyleBackColor = true;
+            this.buttonRepackGameHelp.Location = new System.Drawing.Point(127, 161);
+            this.buttonRepackGameHelp.Name = "buttonRepackGameHelp";
+            this.buttonRepackGameHelp.Size = new System.Drawing.Size(20, 20);
+            this.buttonRepackGameHelp.TabIndex = 8;
+            this.buttonRepackGameHelp.Text = "?";
+            this.buttonRepackGameHelp.UseVisualStyleBackColor = true;
+            this.buttonRepackGameHelp.Click += new System.EventHandler(this.buttonRepackGameHelp_Click);
             // 
-            // button9
+            // buttonTranslateHelp
             // 
-            this.button9.Location = new System.Drawing.Point(127, 123);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(20, 20);
-            this.button9.TabIndex = 7;
-            this.button9.Text = "?";
-            this.button9.UseVisualStyleBackColor = true;
+            this.buttonTranslateHelp.Location = new System.Drawing.Point(127, 123);
+            this.buttonTranslateHelp.Name = "buttonTranslateHelp";
+            this.buttonTranslateHelp.Size = new System.Drawing.Size(20, 20);
+            this.buttonTranslateHelp.TabIndex = 7;
+            this.buttonTranslateHelp.Text = "?";
+            this.buttonTranslateHelp.UseVisualStyleBackColor = true;
+            this.buttonTranslateHelp.Click += new System.EventHandler(this.buttonTranslateHelp_Click);
             // 
-            // button10
+            // buttonRepackIsoHelp
             // 
-            this.button10.Location = new System.Drawing.Point(127, 199);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(20, 20);
-            this.button10.TabIndex = 9;
-            this.button10.Text = "?";
-            this.button10.UseVisualStyleBackColor = true;
+            this.buttonRepackIsoHelp.Location = new System.Drawing.Point(127, 199);
+            this.buttonRepackIsoHelp.Name = "buttonRepackIsoHelp";
+            this.buttonRepackIsoHelp.Size = new System.Drawing.Size(20, 20);
+            this.buttonRepackIsoHelp.TabIndex = 9;
+            this.buttonRepackIsoHelp.Text = "?";
+            this.buttonRepackIsoHelp.UseVisualStyleBackColor = true;
+            this.buttonRepackIsoHelp.Click += new System.EventHandler(this.buttonRepackIsoHelp_Click);
             // 
             // pictureBox1
             // 
@@ -173,10 +178,10 @@
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.labelWork);
-            this.panel1.Controls.Add(this.button10);
-            this.panel1.Controls.Add(this.button8);
-            this.panel1.Controls.Add(this.button9);
-            this.panel1.Controls.Add(this.button7);
+            this.panel1.Controls.Add(this.buttonRepackIsoHelp);
+            this.panel1.Controls.Add(this.buttonRepackGameHelp);
+            this.panel1.Controls.Add(this.buttonTranslateHelp);
+            this.panel1.Controls.Add(this.buttonExtractGameHelp);
             this.panel1.Controls.Add(this.buttonExtractIsoHelp);
             this.panel1.Controls.Add(this.buttonRepackIso);
             this.panel1.Controls.Add(this.buttonRepackGame);
@@ -221,10 +226,10 @@
         private System.Windows.Forms.Button buttonRepackGame;
         private System.Windows.Forms.Button buttonRepackIso;
         private System.Windows.Forms.Button buttonExtractIsoHelp;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button buttonExtractGameHelp;
+        private System.Windows.Forms.Button buttonRepackGameHelp;
+        private System.Windows.Forms.Button buttonTranslateHelp;
+        private System.Windows.Forms.Button buttonRepackIsoHelp;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label labelWork;
         private System.Windows.Forms.Panel panel1;

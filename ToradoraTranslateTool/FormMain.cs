@@ -188,5 +188,30 @@ namespace ToradoraTranslateTool
                 MessageBox.Show("Wait until the work is done!", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void buttonExtractIsoHelp_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This stage will extract selected ISO file to the \\Data\\Iso\\ folder", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void buttonExtractGameHelp_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This stage will extract and process .dat files from ISO." + Environment.NewLine + "It'll take ~9 minutes 46 seconds on the SSD", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void buttonTranslateHelp_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("At this stage you will be able to translate the game text, including menus and settings", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void buttonRepackGameHelp_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This stage will inject translation and repack all game files." + Environment.NewLine + "It'll take ~5-10 minutes on the SSD", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void buttonRepackIsoHelp_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This stage will launch UMDGen where you should repack ISO." + Environment.NewLine + "Just drag and drop the UMD_DATA.BIN file and the PSP_GAME folder from directory \\Data\\Iso\\ into the UMDGen window, and click the save button", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

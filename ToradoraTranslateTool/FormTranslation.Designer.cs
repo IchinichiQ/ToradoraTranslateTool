@@ -37,11 +37,11 @@
             this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnOriginal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnTranslated = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.buttonFilesGridHelp = new System.Windows.Forms.Button();
-            this.buttonTextGridHelp = new System.Windows.Forms.Button();
             this.contextMenuStripStrings = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.itemExportStrings = new System.Windows.Forms.ToolStripMenuItem();
             this.itemImportStrings = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonFilesGridHelp = new System.Windows.Forms.Button();
+            this.buttonTextGridHelp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFiles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStrings)).BeginInit();
             this.contextMenuStripStrings.SuspendLayout();
@@ -133,6 +133,28 @@
             this.ColumnTranslated.Name = "ColumnTranslated";
             this.ColumnTranslated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // contextMenuStripStrings
+            // 
+            this.contextMenuStripStrings.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.itemExportStrings,
+            this.itemImportStrings});
+            this.contextMenuStripStrings.Name = "contextMenuStrip1";
+            this.contextMenuStripStrings.Size = new System.Drawing.Size(171, 48);
+            // 
+            // itemExportStrings
+            // 
+            this.itemExportStrings.Name = "itemExportStrings";
+            this.itemExportStrings.Size = new System.Drawing.Size(170, 22);
+            this.itemExportStrings.Text = "Export all strings...";
+            this.itemExportStrings.Click += new System.EventHandler(this.itemExportStrings_Click);
+            // 
+            // itemImportStrings
+            // 
+            this.itemImportStrings.Name = "itemImportStrings";
+            this.itemImportStrings.Size = new System.Drawing.Size(170, 22);
+            this.itemImportStrings.Text = "Import strings...";
+            this.itemImportStrings.Click += new System.EventHandler(this.itemImportStrings_Click);
+            // 
             // buttonFilesGridHelp
             // 
             this.buttonFilesGridHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -142,6 +164,7 @@
             this.buttonFilesGridHelp.TabIndex = 6;
             this.buttonFilesGridHelp.Text = "?";
             this.buttonFilesGridHelp.UseVisualStyleBackColor = true;
+            this.buttonFilesGridHelp.Click += new System.EventHandler(this.buttonFilesGridHelp_Click);
             // 
             // buttonTextGridHelp
             // 
@@ -152,28 +175,7 @@
             this.buttonTextGridHelp.TabIndex = 7;
             this.buttonTextGridHelp.Text = "?";
             this.buttonTextGridHelp.UseVisualStyleBackColor = true;
-            // 
-            // contextMenuStripStrings
-            // 
-            this.contextMenuStripStrings.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itemExportStrings,
-            this.itemImportStrings});
-            this.contextMenuStripStrings.Name = "contextMenuStrip1";
-            this.contextMenuStripStrings.Size = new System.Drawing.Size(181, 70);
-            // 
-            // itemExportStrings
-            // 
-            this.itemExportStrings.Name = "itemExportStrings";
-            this.itemExportStrings.Size = new System.Drawing.Size(180, 22);
-            this.itemExportStrings.Text = "Export all strings...";
-            this.itemExportStrings.Click += new System.EventHandler(this.itemExportStrings_Click);
-            // 
-            // itemImportStrings
-            // 
-            this.itemImportStrings.Name = "itemImportStrings";
-            this.itemImportStrings.Size = new System.Drawing.Size(180, 22);
-            this.itemImportStrings.Text = "Import strings...";
-            this.itemImportStrings.Click += new System.EventHandler(this.itemImportStrings_Click);
+            this.buttonTextGridHelp.Click += new System.EventHandler(this.buttonTextGridHelp_Click);
             // 
             // FormTranslation
             // 
