@@ -27,7 +27,7 @@ namespace ToradoraTranslateTool
 
             foreach (string archive in archives)
             {
-                if (Path.GetFileName(archive).EndsWith("AAA0") || Path.GetFileName(archive) == "STARTPOINT.obj.gz") // Such files can't be translated
+                if (Path.GetFileName(archive).EndsWith("AAA0.obj.gz") || Path.GetFileName(archive) == "STARTPOINT.obj.gz") // Such files can't be translated
                     continue;
 
                 string newPath = Path.Combine(Application.StartupPath, "Data", "Obj", Path.GetFileNameWithoutExtension(archive), Path.GetFileName(archive)); // Data\Obj\%obj name%\%obj archive%

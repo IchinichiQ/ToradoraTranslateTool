@@ -115,7 +115,7 @@ namespace ToradoraTranslateTool
                 for (int i = 0; i < dataGridViewStrings.Rows.Count; i++) // Updating translation in json
                 {
                     string translatedString = dataGridViewStrings.Rows[i].Cells[2].Value?.ToString();
-                    if (translatedString != "")
+                    if (translatedString != "" && translatedString != null)
                     {
                         translatedCount++;
                         if (dataGridViewStrings.Rows[i].Cells[0].Value?.ToString() != "") // If have a name, then add the necessary brackets
@@ -183,7 +183,7 @@ namespace ToradoraTranslateTool
                     string[] myStrings = new string[dataGridViewStrings.Rows.Count];
                     for (int i = 0; i < myStrings.Length; i++)
                     {
-                        myStrings[i] = dataGridViewStrings.Rows[i].Cells[0].Value?.ToString() + ";" + dataGridViewStrings.Rows[i].Cells[1].Value?.ToString();
+                        myStrings[i] = dataGridViewStrings.Rows[i].Cells[0].Value?.ToString() + ";" + dataGridViewStrings.Rows[i].Cells[1].Value?.ToString() + ";" + dataGridViewStrings.Rows[i].Cells[2].Value?.ToString();
                     }
                     File.WriteAllLines(mySaveFileDialog.FileName, myStrings);
                 }
