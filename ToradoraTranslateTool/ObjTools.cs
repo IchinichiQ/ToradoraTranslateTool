@@ -25,13 +25,14 @@ namespace ToradoraTranslateTool
 
             foreach (string archive in archives)
             {
-                if (Path.GetFileName(archive).EndsWith("AAA0.obj.gz") || Path.GetFileName(archive) == "STARTPOINT.obj.gz") // Such files can't be translated
+                if (Path.GetFileName(archive) == "STARTPOINT.obj.gz") // This file can't be translated
                     continue;
 
                 string newPath = Path.Combine(Application.StartupPath, "Data", "Obj", Path.GetFileNameWithoutExtension(archive), Path.GetFileName(archive)); // Data\Obj\%obj name%\%obj archive%
                 Directory.CreateDirectory(Path.GetDirectoryName(newPath));
                 File.Copy(archive, newPath, true);
-                
+                File.WriteAllText(Path.Combine(Application.StartupPath, "Data", "Obj", Path.GetFileNameWithoutExtension(archive), Path.GetFileNameWithoutExtension(archive) + ".txt"), archive.Replace(Application.StartupPath, "")); // Write relative path to the original file in Data\Obj\%obj name%\%obj name%.txt
+
                 Process myProc = new Process();
                 myProc.StartInfo.FileName = Path.Combine(toolsDirectory, "gzip.exe");
                 myProc.StartInfo.Arguments = "-d -f \"" + newPath + "\""; // -d for decompress, -f (force) for overwrite 
@@ -52,7 +53,8 @@ namespace ToradoraTranslateTool
             string newPath = Path.Combine(Application.StartupPath, "Data", "Txt", Path.GetFileNameWithoutExtension(archive), Path.GetFileName(archive)); // Data\Txt\%txt name%\%txt archive%
             Directory.CreateDirectory(Path.GetDirectoryName(newPath));
             File.Copy(archive, newPath, true);
- 
+            File.WriteAllText(Path.Combine(Application.StartupPath, "Data", "Txt", Path.GetFileNameWithoutExtension(archive), Path.GetFileNameWithoutExtension(archive) + ".txt"), archive.Replace(Application.StartupPath, "")); // Write relative path to the original file in Data\Txt\%txt name%\%txt name%.txt
+
             Process myProc = new Process();
             myProc.StartInfo.FileName = Path.Combine(toolsDirectory, "gzip.exe");
             myProc.StartInfo.Arguments = "-d -f \"" + newPath + "\""; // -d for decompress, -f (force) for overwrite 
@@ -79,7 +81,7 @@ namespace ToradoraTranslateTool
 
         public static void RepackObj()
         {
-            List<String> directories = new List<string>();       
+            List<String> directories = new List<string>();
             directories.AddRange(Directory.GetDirectories(Path.Combine(Application.StartupPath, "Data", "Obj")).Select(Path.GetFileName));
 
             JObject mainFile = JObject.Parse(File.ReadAllText(mainFilePath));
@@ -91,11 +93,11 @@ namespace ToradoraTranslateTool
                     OBJHelper myHelper = new OBJHelper(File.ReadAllBytes(filepath));
                     string[] scriptStrings = myHelper.Import();
 
-                    for(int i = 0; i < scriptStrings.Length; i++)
+                    for (int i = 0; i < scriptStrings.Length; i++)
                     {
                         string translatedString = mainFile[name][i.ToString()].ToString();
                         if (translatedString != "")
-                            scriptStrings[i] = translatedString;                    
+                            scriptStrings[i] = translatedString;
                     }
 
                     File.WriteAllBytes(Path.Combine(toolsDirectory, name), myHelper.Export(scriptStrings));
@@ -109,7 +111,7 @@ namespace ToradoraTranslateTool
                     myProc.WaitForExit();
 
                     File.Delete(Path.Combine(toolsDirectory, name));
-                    
+
                     File.Replace(Path.Combine(toolsDirectory, name + ".gz"), Application.StartupPath + File.ReadAllText(filepath + ".txt"), null);
                 }
             }
@@ -128,7 +130,7 @@ namespace ToradoraTranslateTool
                     string filepath = Path.Combine(Application.StartupPath, "Data", "Txt", name, name);
                     string[] fileLines = File.ReadAllLines(filepath, new UnicodeEncoding(false, false)); ;
 
-                    for (int i = 0; i < fileLines.Length; i++)
+                    for(int i = 0; i < fileLines.Length; i++)
                     {
                         string translatedString = mainFile[name][i.ToString()].ToString();
                         if (translatedString != "")

@@ -147,7 +147,7 @@ namespace ToradoraTranslateTool
                     if (translatedString != "")
                     {
                         translatedCount++;
-                        if (dataGridViewStrings.Rows[i].Cells[1].Value?.ToString() != "")
+                        if (dataGridViewStrings.Rows[i].Cells[0].Value?.ToString() != "" && dataGridViewStrings.Rows[i].Cells[0].Value?.ToString() != null)
                             translatedString = "「" + translatedString + "」";
                     }
                     translatedStrings.Add(i.ToString(), translatedString);
