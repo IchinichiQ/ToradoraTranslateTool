@@ -55,7 +55,7 @@ namespace ToradoraTranslateTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error!" + Environment.NewLine + ex.Message, "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error!" + Environment.NewLine + ex.ToString(), "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -68,7 +68,7 @@ namespace ToradoraTranslateTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error!" + Environment.NewLine + ex.Message, "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error!" + Environment.NewLine + ex.ToString(), "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -172,7 +172,7 @@ namespace ToradoraTranslateTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error!" + Environment.NewLine + ex.Message, "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error!" + Environment.NewLine + ex.ToString(), "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -190,7 +190,7 @@ namespace ToradoraTranslateTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error!" + Environment.NewLine + ex.Message, "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error!" + Environment.NewLine + ex.ToString(), "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -221,7 +221,7 @@ namespace ToradoraTranslateTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error!" + Environment.NewLine + ex.Message, "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error!" + Environment.NewLine + ex.ToString(), "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -251,7 +251,7 @@ namespace ToradoraTranslateTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error!" + Environment.NewLine + ex.Message, "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error!" + Environment.NewLine + ex.ToString(), "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
