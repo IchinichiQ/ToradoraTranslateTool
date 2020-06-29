@@ -268,7 +268,7 @@ namespace ToradoraTranslateTool
 
         private void buttonFilesGridHelp_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This table contains 360 files to be translated." + Environment.NewLine + "Double-click a file to load it", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("This table contains 363 files to be translated." + Environment.NewLine + "Double-click a file to load it", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void buttonTextGridHelp_Click(object sender, EventArgs e)
