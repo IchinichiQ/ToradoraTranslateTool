@@ -36,7 +36,7 @@ namespace ToradoraTranslateTool
                 JObject mainFile = JObject.Parse(File.ReadAllText(mainFilePath));
                 foreach (string name in directories) // Adding files to the table
                 {
-                    int translationPercent = 0;
+                    string translationPercent = "0";
                     if (mainFile[name] != null)  // If json have saved translation
                     {
                         int stringCount = mainFile[name].Children().Children().Count(); // scary
@@ -46,7 +46,7 @@ namespace ToradoraTranslateTool
                             if (mainFile[name][i.ToString()].ToString() != "")
                                 translatedCount++;
                         }
-                        translationPercent = (int)Math.Round((double)(translatedCount * 100) / stringCount);
+                        translationPercent = Math.Round((double)(translatedCount * 100) / stringCount, 1).ToString();
                     }
 
                     dataGridViewFiles.Rows.Add(name, translationPercent + "%");
@@ -155,7 +155,7 @@ namespace ToradoraTranslateTool
                 mainFile.Add(new JProperty(currentFile, translatedStrings));
             }
 
-            int translationPercent = (int)Math.Round((double)(translatedCount * 100) / dataGridViewStrings.Rows.Count);
+            string translationPercent = Math.Round((double)(translatedCount * 100.0) / dataGridViewStrings.Rows.Count, 1).ToString();
             DataGridViewRow myRow = dataGridViewFiles.Rows.Cast<DataGridViewRow>().Where(r => r.Cells[0].Value.ToString().Equals(currentFile)).First(); // Find row by filename
             myRow.Cells[1].Value = translationPercent.ToString() + "%";
             updateTotalPercent();
@@ -257,13 +257,13 @@ namespace ToradoraTranslateTool
 
         private void updateTotalPercent()
         {
-            int currentPercent = 0;
+            double currentPercent = 0;
             for (int i = 1; i < dataGridViewFiles.Rows.Count; i++)
             {
-                currentPercent += Int32.Parse(dataGridViewFiles.Rows[i].Cells[1].Value?.ToString().Replace("%", ""));
+                currentPercent += Double.Parse(dataGridViewFiles.Rows[i].Cells[1].Value?.ToString().Replace("%", ""));
             }
-            int currentTotalPercent = (int)Math.Round((double)(currentPercent * 100) / ((dataGridViewFiles.Rows.Count - 1) * 100));
-            dataGridViewFiles.Rows[0].Cells[1].Value = currentTotalPercent.ToString() + "%";
+            string currentTotalPercent = Math.Round((double)(currentPercent * 100.0) / ((dataGridViewFiles.Rows.Count - 1) * 100.0), 1).ToString();
+            dataGridViewFiles.Rows[0].Cells[1].Value = currentTotalPercent + "%";
         }
 
         private void buttonFilesGridHelp_Click(object sender, EventArgs e)
