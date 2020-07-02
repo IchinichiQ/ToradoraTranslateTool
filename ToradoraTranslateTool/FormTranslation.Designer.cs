@@ -42,6 +42,7 @@
             this.itemImportStrings = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonFilesGridHelp = new System.Windows.Forms.Button();
             this.buttonTextGridHelp = new System.Windows.Forms.Button();
+            this.translateNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFiles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStrings)).BeginInit();
             this.contextMenuStripStrings.SuspendLayout();
@@ -137,21 +138,22 @@
             // 
             this.contextMenuStripStrings.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itemExportStrings,
-            this.itemImportStrings});
+            this.itemImportStrings,
+            this.translateNamesToolStripMenuItem});
             this.contextMenuStripStrings.Name = "contextMenuStrip1";
-            this.contextMenuStripStrings.Size = new System.Drawing.Size(171, 48);
+            this.contextMenuStripStrings.Size = new System.Drawing.Size(181, 92);
             // 
             // itemExportStrings
             // 
             this.itemExportStrings.Name = "itemExportStrings";
-            this.itemExportStrings.Size = new System.Drawing.Size(170, 22);
+            this.itemExportStrings.Size = new System.Drawing.Size(180, 22);
             this.itemExportStrings.Text = "Export all strings...";
             this.itemExportStrings.Click += new System.EventHandler(this.itemExportStrings_Click);
             // 
             // itemImportStrings
             // 
             this.itemImportStrings.Name = "itemImportStrings";
-            this.itemImportStrings.Size = new System.Drawing.Size(170, 22);
+            this.itemImportStrings.Size = new System.Drawing.Size(180, 22);
             this.itemImportStrings.Text = "Import strings...";
             this.itemImportStrings.Click += new System.EventHandler(this.itemImportStrings_Click);
             // 
@@ -176,6 +178,13 @@
             this.buttonTextGridHelp.Text = "?";
             this.buttonTextGridHelp.UseVisualStyleBackColor = true;
             this.buttonTextGridHelp.Click += new System.EventHandler(this.buttonTextGridHelp_Click);
+            // 
+            // translateNamesToolStripMenuItem
+            // 
+            this.translateNamesToolStripMenuItem.Name = "translateNamesToolStripMenuItem";
+            this.translateNamesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.translateNamesToolStripMenuItem.Text = "Translate names...";
+            this.translateNamesToolStripMenuItem.Click += new System.EventHandler(this.translateNamesToolStripMenuItem_Click);
             // 
             // FormTranslation
             // 
@@ -213,5 +222,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripStrings;
         private System.Windows.Forms.ToolStripMenuItem itemExportStrings;
         private System.Windows.Forms.ToolStripMenuItem itemImportStrings;
+        private System.Windows.Forms.ToolStripMenuItem translateNamesToolStripMenuItem;
     }
 }

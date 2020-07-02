@@ -85,6 +85,17 @@ namespace ToradoraTranslateTool
             directories.AddRange(Directory.GetDirectories(Path.Combine(Application.StartupPath, "Data", "Obj")).Select(Path.GetFileName));
 
             JObject mainFile = JObject.Parse(File.ReadAllText(mainFilePath));
+
+            Dictionary<string, string> translatedNames = new Dictionary<string, string>(); // Dictionary with pairs of original and translated names
+            if (mainFile["names"] != null)
+            {
+                foreach (JProperty name in mainFile["names"].Children().ToArray())
+                {
+                    if (name.Value.ToString() != "") // If a translation for that name exists
+                        translatedNames.Add(name.Name, name.Value.ToString());
+                }
+            }
+
             foreach (string name in directories)
             {
                 if (mainFile[name] != null)  // If json have translation for that file
@@ -92,12 +103,16 @@ namespace ToradoraTranslateTool
                     string filepath = Path.Combine(Application.StartupPath, "Data", "Obj", name, name);
                     OBJHelper myHelper = new OBJHelper(File.ReadAllBytes(filepath));
                     string[] scriptStrings = myHelper.Import();
+                    Dictionary<int,string> scriptNames = myHelper.Actors;
 
                     for (int i = 0; i < scriptStrings.Length; i++)
                     {
                         string translatedString = mainFile[name][i.ToString()].ToString();
                         if (translatedString != "")
                             scriptStrings[i] = translatedString;
+
+                        if (scriptNames[i] != null && translatedNames.ContainsKey(scriptNames[i]))
+                            scriptNames[i] = translatedNames[scriptNames[i]];
                     }
 
                     File.WriteAllBytes(Path.Combine(toolsDirectory, name), myHelper.Export(scriptStrings));

@@ -16,7 +16,7 @@ namespace ToradoraTranslateTool
     public partial class FormTranslation : Form
     {
         string currentFile;
-        public string mainFilePath = Path.Combine(Application.StartupPath, "Translation.json");
+        string mainFilePath = Path.Combine(Application.StartupPath, "Translation.json");
 
         public FormTranslation()
         {
@@ -266,6 +266,39 @@ namespace ToradoraTranslateTool
             dataGridViewFiles.Rows[0].Cells[1].Value = currentTotalPercent + "%";
         }
 
+        private List<string> GetAllNames()
+        {
+            List<string> uniqueNames = new List<string>();
+
+            for (int i = 1; i < dataGridViewFiles.Rows.Count; i++)
+            {
+                string filename = dataGridViewFiles.Rows[i].Cells[0].Value?.ToString();
+                if (Path.GetExtension(filename) != ".obj")
+                    continue;
+
+                string filepath = Path.Combine(Application.StartupPath, "Data", "Obj", filename, filename);
+                OBJHelper myHelper = new OBJHelper(File.ReadAllBytes(filepath));
+                Dictionary<int, string> myNames = new Dictionary<int, string>();
+                myHelper.Import();
+                myNames = myHelper.Actors;
+
+                for (int ii = 0; ii < myNames.Count; ii++)
+                {
+                    if (uniqueNames.Contains(myNames[ii]) == false)
+                        uniqueNames.Add(myNames[ii]);
+                }
+            }
+
+            uniqueNames.Remove(null);
+            return uniqueNames;
+        }
+
+        private void translateNamesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormNames myForm = new FormNames(GetAllNames());
+            myForm.Show();
+        }
+
         private void buttonFilesGridHelp_Click(object sender, EventArgs e)
         {
             MessageBox.Show("This table contains 363 files to be translated." + Environment.NewLine + "Double-click a file to load it", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -278,7 +311,8 @@ namespace ToradoraTranslateTool
                 "You can export all rows to a .txt file from the context menu, and import this file into Excel or Google Docs to get a nice table. The separator for tables is \";\"." + Environment.NewLine +
                 "You can also import the finished translation into the program. To do this, you need an .txt file in which each sentence will be from a new line." + Environment.NewLine +
                 "Automatic name translation is not supported." + Environment.NewLine +
-                "Learn more at https://github.com/12135555/ToradoraTranslateTool", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                "Learn more at: https://github.com/12135555/ToradoraTranslateTool", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
     }
 }
