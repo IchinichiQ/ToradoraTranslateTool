@@ -119,9 +119,15 @@
     <None Include="Data\DatWorker\Workspace\!xp.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Images\!Tools\Gim\GimConv.cfg" />
-    <None Include="Images\!Tools\PngToGimGz.bat" />
-    <None Include="Images\!Tools\TxtToGz.bat" />
+    <None Include="Images\!Tools\Gim\GimConv.cfg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\!Tools\PngToGimGz.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\!Tools\TxtToGz.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -173,15 +179,33 @@
     <Content Include="Data\Mkisofs\mkisofs.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\!Tools\Gim\GimConv.exe" />
-    <Content Include="Images\!Tools\Gim\GxoTool.dll" />
-    <Content Include="Images\!Tools\Gim\lib\ExtendEdge.dll" />
-    <Content Include="Images\!Tools\Gim\lib\GimFormat.dll" />
-    <Content Include="Images\!Tools\Gim\lib\GimProc.dll" />
-    <Content Include="Images\!Tools\Gim\lib\ImpExpPNG.dll" />
-    <Content Include="Images\!Tools\Gim\lib\ImportDDS.dll" />
-    <Content Include="Images\!Tools\sg_title01.png" />
-    <Content Include="Images\!Tools\test.txt" />
+    <Content Include="Images\!Tools\Gim\GimConv.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\!Tools\Gim\GxoTool.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\!Tools\Gim\lib\ExtendEdge.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\!Tools\Gim\lib\GimFormat.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\!Tools\Gim\lib\GimProc.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\!Tools\Gim\lib\ImpExpPNG.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\!Tools\Gim\lib\ImportDDS.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\!Tools\sg_title01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\!Tools\test.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\first\image_sharing\sg_button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
