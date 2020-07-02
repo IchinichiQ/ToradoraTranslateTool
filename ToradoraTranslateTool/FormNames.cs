@@ -19,14 +19,13 @@ namespace ToradoraTranslateTool
             {
                 string translatedName = "";
 
-                if (mainFile["names"][name] != null) 
+                if (mainFile["names"] != null && mainFile["names"][name] != null) 
                     translatedName = mainFile["names"][name].ToString();
 
                 dataGridViewNames.Rows.Add(name, translatedName);
             }
 
-            MessageBox.Show("Do not translate the names unless you have translated the charaname.txt file, otherwise they will not appear in dialogs!" + Environment.NewLine +
-                "Learn more at: https://github.com/12135555/ToradoraTranslateTool", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show("Do not translate the names unless you have translated the charaname.txt file, otherwise they will not appear in dialogs!", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void SaveProgress()
