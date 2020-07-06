@@ -301,7 +301,7 @@ namespace ToradoraTranslateTool
 
         private void buttonFilesGridHelp_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This table contains 363 files to be translated." + Environment.NewLine + "Double-click a file to load it", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("This table contains 363 files with 26508 lines to be translated." + Environment.NewLine + "Double-click a file to load it", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void buttonTextGridHelp_Click(object sender, EventArgs e)
@@ -310,7 +310,6 @@ namespace ToradoraTranslateTool
                 "All entered data will be automatically saved for later use." + Environment.NewLine +
                 "You can export all rows to a .txt file from the context menu, and import this file into Excel or Google Docs to get a nice table. The separator for tables is \";\"." + Environment.NewLine +
                 "You can also import the finished translation into the program. To do this, you need an .txt file in which each sentence will be from a new line." + Environment.NewLine +
-                "Automatic name translation is not supported." + Environment.NewLine +
                 "Learn more at: https://github.com/12135555/ToradoraTranslateTool", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
