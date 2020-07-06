@@ -304,6 +304,37 @@ namespace ToradoraTranslateTool
             myForm.Show();
         }
 
+        private void itemLineBreaks_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (currentFile == null)
+                {
+                    MessageBox.Show("First select the file!", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                for (int i = 0; i < dataGridViewStrings.RowCount; i++)
+                {
+                    string translatedString = dataGridViewStrings.Rows[i].Cells[2].Value?.ToString();
+                    if (translatedString.Length > 40) // Dialog box can fit ~31 uppercase characters, and ~53 lowercase characters
+                    {
+                        var charCount = 0;
+                        var lines = translatedString.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries)
+                                        .GroupBy(w => (charCount += w.Length + 1) / 41)
+                                        .Select(g => string.Join(" ", g.ToArray()));
+
+                        dataGridViewStrings.Rows[i].Cells[2].Value = String.Join("＿", lines.ToArray());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error!" + Environment.NewLine + ex.ToString(), "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void buttonFilesGridHelp_Click(object sender, EventArgs e)
         {
             MessageBox.Show("This table contains 363 files with 26508 lines to be translated." + Environment.NewLine + "Double-click a file to load it", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
