@@ -107,13 +107,18 @@ namespace ToradoraTranslateTool
                 if (myStrings[i].StartsWith("「") && myStrings[i].EndsWith("」"))
                 {
                     name = myNames[i];
-                    sentence = myStrings[i].Replace("「", "").Replace("」", ""); // Remove brackets from original sentence
+                    sentence = myStrings[i].TrimStart('「').TrimEnd('」'); // Remove brackets from the beginning and end of the original sentence
                 }
                 else
                     sentence = myStrings[i];
 
                 if (haveTranslation)
-                    translated = mainFile[currentFile][i.ToString()].ToString().Replace("「", "").Replace("」", ""); // Remove brackets from translated sentence
+                {
+                    translated = mainFile[currentFile][i.ToString()].ToString();
+
+                    if (translated.StartsWith("「") && translated.EndsWith("」"))
+                        translated = translated.TrimStart('「').TrimEnd('」'); // Remove brackets from the beginning and end of the original sentence
+                }
 
                 dataGridViewStrings.Rows.Add(name, sentence, translated);
             }
