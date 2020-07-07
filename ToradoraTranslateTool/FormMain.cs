@@ -123,7 +123,7 @@ namespace ToradoraTranslateTool
                 ChangeStatus(true);
                 DisableButtons();
 
-                await Task.Run(() => ObjTools.RepackObj());
+                await Task.Run(() => ObjTools.RepackObj(itemDebugMode.Checked));
                 await Task.Run(() => ObjTools.RepackTxt());
                 await Task.Run(() => DatTools.RepackDat(Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource.dat-LstOrder.lst")));
                 await Task.Run(() => ObjTools.RepackSeekmap(Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource.dat"), Path.Combine(Application.StartupPath, "Data", "DatWorker", "first")));
@@ -212,7 +212,10 @@ namespace ToradoraTranslateTool
 
         private void buttonRepackGameHelp_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This stage will inject translation and repack all game files." + Environment.NewLine + "It'll take ~5-10 minutes on the SSD", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("This stage will inject translation and repack all game files." + Environment.NewLine +
+                "It'll take ~5-10 minutes on the SSD." + Environment.NewLine +
+                "You can enable debug mode by right-clicking on the repack button. In this mode you will be able to teleport to any level, and much more",
+                "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void buttonRepackIsoHelp_Click(object sender, EventArgs e)

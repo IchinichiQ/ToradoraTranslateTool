@@ -79,7 +79,7 @@ namespace ToradoraTranslateTool
             File.Delete(Path.Combine(toolsDirectory, "seekmap.txt.gz"));
         }
 
-        public static void RepackObj()
+        public static void RepackObj(bool debugMode)
         {
             List<String> directories = new List<string>();
             directories.AddRange(Directory.GetDirectories(Path.Combine(Application.StartupPath, "Data", "Obj")).Select(Path.GetFileName));
@@ -130,6 +130,9 @@ namespace ToradoraTranslateTool
                     File.Replace(Path.Combine(toolsDirectory, name + ".gz"), Application.StartupPath + File.ReadAllText(filepath + ".txt"), null);
                 }
             }
+         
+            if (debugMode)
+                File.Copy(Path.Combine(Application.StartupPath, "Data", "Debug", "_0000ESS1.obj.gz"), Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource", "script", "_0000ESS1", "_0000ESS1.0001", "_0000ESS1.obj.gz"), true); // This file enables debug mode
         }
 
         public static void RepackTxt()

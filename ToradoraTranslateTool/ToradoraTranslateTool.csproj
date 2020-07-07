@@ -119,6 +119,9 @@
     <None Include="Data\DatWorker\Workspace\!xp.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Data\Debug\_0000ESS1.obj.gz">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Images\!Tools\!PngToGim.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

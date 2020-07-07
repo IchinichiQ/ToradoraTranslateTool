@@ -45,8 +45,11 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.timerWork = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
+            this.contextMenuStripDebug = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.itemDebugMode = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
+            this.contextMenuStripDebug.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonExtractIso
@@ -83,6 +86,7 @@
             // 
             // buttonRepackGame
             // 
+            this.buttonRepackGame.ContextMenuStrip = this.contextMenuStripDebug;
             this.buttonRepackGame.Enabled = false;
             this.buttonRepackGame.Location = new System.Drawing.Point(8, 149);
             this.buttonRepackGame.Name = "buttonRepackGame";
@@ -209,6 +213,20 @@
             this.label1.TabIndex = 13;
             this.label1.Text = "1.1.0";
             // 
+            // contextMenuStripDebug
+            // 
+            this.contextMenuStripDebug.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.itemDebugMode});
+            this.contextMenuStripDebug.Name = "contextMenuStripDebug";
+            this.contextMenuStripDebug.Size = new System.Drawing.Size(181, 48);
+            // 
+            // itemDebugMode
+            // 
+            this.itemDebugMode.CheckOnClick = true;
+            this.itemDebugMode.Name = "itemDebugMode";
+            this.itemDebugMode.Size = new System.Drawing.Size(180, 22);
+            this.itemDebugMode.Text = "Debug mode";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -226,6 +244,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.contextMenuStripDebug.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -248,6 +267,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Timer timerWork;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripDebug;
+        private System.Windows.Forms.ToolStripMenuItem itemDebugMode;
     }
 }
 
