@@ -12,3 +12,4 @@ You will need to change these coordinates, depending on the location of the name
 You can also translate the place names in placename.txt. In this file, you only need to change the names, without the coordinates.
 
 All text files have Shift-JIS encoding. You can use Notepad++ to edit them.
+The background must have a .gim extension, and all other images must have a .gim.gz extension.
