@@ -212,6 +212,7 @@ namespace ToradoraTranslateTool
                 using (SaveFileDialog mySaveFileDialog = new SaveFileDialog())
                 {
                     mySaveFileDialog.Filter = "Text file (*.txt) | *.txt";
+                    mySaveFileDialog.FileName = Path.GetFileNameWithoutExtension(currentFile);
 
                     if (mySaveFileDialog.ShowDialog() == DialogResult.OK)
                     {
