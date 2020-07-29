@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace ToradoraTranslateTool
@@ -13,6 +14,11 @@ namespace ToradoraTranslateTool
         public FormNames(List<string> originalNames)
         {
             InitializeComponent();
+
+            //Enable double buffering for the table to remove lags
+            typeof(DataGridView).InvokeMember("DoubleBuffered",
+            BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+            null, dataGridViewNames, new object[] { true });
 
             JObject mainFile = JObject.Parse(File.ReadAllText(mainFilePath)); // Get a saved names translation
             foreach (string name in originalNames)

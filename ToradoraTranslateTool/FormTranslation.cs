@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using OBJEditor;
 using Newtonsoft.Json.Linq;
+using System.Reflection;
 
 namespace ToradoraTranslateTool
 {
@@ -21,6 +22,16 @@ namespace ToradoraTranslateTool
         public FormTranslation()
         {
             InitializeComponent();
+
+            //Enable double buffering for the tables to remove lags
+            typeof(DataGridView).InvokeMember("DoubleBuffered",
+            BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+            null, dataGridViewStrings, new object[] { true });
+
+            typeof(DataGridView).InvokeMember("DoubleBuffered",
+            BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+            null, dataGridViewFiles, new object[] { true });
+
 
             try
             {
