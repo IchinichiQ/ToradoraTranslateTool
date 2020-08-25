@@ -131,6 +131,9 @@ namespace ToradoraTranslateTool
 
                     if (translated.StartsWith("「") && translated.EndsWith("」"))
                         translated = translated.TrimStart('「').TrimEnd('」'); // Remove brackets from the beginning and end of the original sentence
+
+                    if (translated.StartsWith("（") && translated.EndsWith("）"))
+                        translated = translated.TrimStart('（').TrimEnd('）'); // Remove brackets from the beginning and end of the original sentence
                 }
 
                 dataGridViewStrings.Rows.Add(name, sentence, translated);
@@ -150,6 +153,8 @@ namespace ToradoraTranslateTool
                     if (translatedString != "" && translatedString != null)
                     {
                         translatedCount++;
+                        if (dataGridViewStrings.Rows[i].Cells[1].Value.ToString().StartsWith("（") && dataGridViewStrings.Rows[i].Cells[1].Value.ToString().EndsWith("）"))
+                            translatedString = "（" + translatedString + "）";
                         if (dataGridViewStrings.Rows[i].Cells[0].Value?.ToString() != "") // If have a name, then add the necessary brackets
                             translatedString = "「" + translatedString + "」";
                     }
@@ -361,7 +366,8 @@ namespace ToradoraTranslateTool
         {
             MessageBox.Show("This table contains all the sentences stored in the selected file." + Environment.NewLine +
                 "All entered data will be automatically saved for later use." + Environment.NewLine +
-                "You can export all rows to a .txt file from the context menu, and import this file into Excel or Google Docs to get a nice table. The separator for tables is \";\"." + Environment.NewLine +
+                "The brackets \"（\" and \"）\" will be added to the translated text automatically" + Environment.NewLine +
+                "You can export all rows to a .xlsx file from the context menu." + Environment.NewLine +
                 "You can also import the finished translation into the program. To do this, you need an .txt file in which each sentence will be from a new line." + Environment.NewLine +
                 "Learn more at: https://github.com/12135555/ToradoraTranslateTool", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
