@@ -418,7 +418,10 @@ namespace ToradoraTranslateTool
 
         private void buttonFilesGridHelp_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This table contains 363 files with 26508 lines to be translated." + Environment.NewLine + "Double-click a file to load it", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("This table contains 363 files with 26508 lines to be translated." + Environment.NewLine +
+                "Double-click a file to load it." + Environment.NewLine +
+                "You can export and import text from all files from the context menu." + Environment.NewLine +
+                "To import a translated text, you need to create a text file in which each string will be from a new line. This file must have the same name as the .obj file, for example \"_0000ESS1.obj.txt\"", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void buttonTextGridHelp_Click(object sender, EventArgs e)
