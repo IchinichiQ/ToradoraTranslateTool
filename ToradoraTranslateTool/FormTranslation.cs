@@ -11,6 +11,7 @@ using System.IO;
 using OBJEditor;
 using Newtonsoft.Json.Linq;
 using System.Reflection;
+using PicoXLSX;
 
 namespace ToradoraTranslateTool
 {
@@ -222,17 +223,20 @@ namespace ToradoraTranslateTool
 
                 using (SaveFileDialog mySaveFileDialog = new SaveFileDialog())
                 {
-                    mySaveFileDialog.Filter = "Text file (*.txt) | *.txt";
+                    mySaveFileDialog.Filter = "Excel sheet (*.xlsx) | *.xlsx";
                     mySaveFileDialog.FileName = Path.GetFileNameWithoutExtension(currentFile);
 
                     if (mySaveFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        string[] myStrings = new string[dataGridViewStrings.Rows.Count];
-                        for (int i = 0; i < myStrings.Length; i++)
+                        Workbook workbook = new Workbook(mySaveFileDialog.FileName, "Sheet1");
+                        for (int i = 0; i < dataGridViewStrings.RowCount; i++)
                         {
-                            myStrings[i] = dataGridViewStrings.Rows[i].Cells[0].Value?.ToString() + ";" + dataGridViewStrings.Rows[i].Cells[1].Value?.ToString() + ";" + dataGridViewStrings.Rows[i].Cells[2].Value?.ToString();
+                            workbook.CurrentWorksheet.AddNextCell(dataGridViewStrings.Rows[i].Cells[0].Value?.ToString()); 
+                            workbook.CurrentWorksheet.AddNextCell(dataGridViewStrings.Rows[i].Cells[1].Value?.ToString());
+                            workbook.CurrentWorksheet.AddNextCell(dataGridViewStrings.Rows[i].Cells[2].Value?.ToString());
+                            workbook.CurrentWorksheet.GoToNextRow();                          
                         }
-                        File.WriteAllLines(mySaveFileDialog.FileName, myStrings);
+                        workbook.Save();
                     }
                 }
             }
