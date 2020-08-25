@@ -279,6 +279,15 @@ namespace ToradoraTranslateTool
             }
         }
 
+        private void ImportText(string filename)
+        {
+            string[] myStrings = File.ReadAllLines(filename);
+            for (int i = 0; i < myStrings.Length; i++)
+            {
+                dataGridViewStrings.Rows[i].Cells[2].Value = myStrings[i];
+            }
+        }
+
         private void itemImportStrings_Click(object sender, EventArgs e)
         {
             try
@@ -294,14 +303,37 @@ namespace ToradoraTranslateTool
                     myOpenFileDialog.Filter = "Text file (*.txt) | *.txt";
 
                     if (myOpenFileDialog.ShowDialog() == DialogResult.OK)
+                        ImportText(myOpenFileDialog.FileName);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error!" + Environment.NewLine + ex.ToString(), "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void itemImportAll_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var myFolderDialog = new FolderBrowserDialog())
+                {
+                    if (myFolderDialog.ShowDialog() == DialogResult.OK)
                     {
-                        string[] myStrings = File.ReadAllLines(myOpenFileDialog.FileName);
-                        for (int i = 0; i < myStrings.Length; i++)
+                        for (int i = 1; i < dataGridViewFiles.RowCount; i++)
                         {
-                            dataGridViewStrings.Rows[i].Cells[2].Value = myStrings[i];
+                            string objName = dataGridViewFiles[0, i].Value.ToString();
+                            string txtFilename = Path.Combine(myFolderDialog.SelectedPath, objName + ".txt");
+                            if (File.Exists(txtFilename))
+                            {
+                                LoadFile(objName);
+                                ImportText(txtFilename);
+                            }
                         }
                     }
                 }
+
+                MessageBox.Show("Done!", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
