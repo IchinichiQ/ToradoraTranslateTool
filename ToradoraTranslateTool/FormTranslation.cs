@@ -123,6 +123,7 @@ namespace ToradoraTranslateTool
                 }
                 else
                     sentence = myStrings[i];
+                sentence = sentence.Replace("＿", " ");
 
                 if (haveTranslation)
                 {
