@@ -217,6 +217,19 @@ namespace ToradoraTranslateTool
             }
         }
 
+        private void ExportText(string filename)
+        {
+            Workbook workbook = new Workbook(filename, "Sheet1");
+            for (int i = 0; i < dataGridViewStrings.RowCount; i++)
+            {
+                workbook.CurrentWorksheet.AddNextCell(dataGridViewStrings.Rows[i].Cells[0].Value?.ToString());
+                workbook.CurrentWorksheet.AddNextCell(dataGridViewStrings.Rows[i].Cells[1].Value?.ToString());
+                workbook.CurrentWorksheet.AddNextCell(dataGridViewStrings.Rows[i].Cells[2].Value?.ToString());
+                workbook.CurrentWorksheet.GoToNextRow();
+            }
+            workbook.Save();
+        }
+
         private void itemExportStrings_Click(object sender, EventArgs e)
         {
             try
@@ -233,18 +246,32 @@ namespace ToradoraTranslateTool
                     mySaveFileDialog.FileName = Path.GetFileNameWithoutExtension(currentFile);
 
                     if (mySaveFileDialog.ShowDialog() == DialogResult.OK)
+                        ExportText(mySaveFileDialog.FileName);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error!" + Environment.NewLine + ex.ToString(), "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void toolStripMenuItemExportAll_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var myFolderDialog = new FolderBrowserDialog())
+                {
+                    if (myFolderDialog.ShowDialog() == DialogResult.OK)
                     {
-                        Workbook workbook = new Workbook(mySaveFileDialog.FileName, "Sheet1");
-                        for (int i = 0; i < dataGridViewStrings.RowCount; i++)
+                        for (int i = 1; i < dataGridViewFiles.RowCount; i++)
                         {
-                            workbook.CurrentWorksheet.AddNextCell(dataGridViewStrings.Rows[i].Cells[0].Value?.ToString()); 
-                            workbook.CurrentWorksheet.AddNextCell(dataGridViewStrings.Rows[i].Cells[1].Value?.ToString());
-                            workbook.CurrentWorksheet.AddNextCell(dataGridViewStrings.Rows[i].Cells[2].Value?.ToString());
-                            workbook.CurrentWorksheet.GoToNextRow();                          
+                            LoadFile(dataGridViewFiles[0, i].Value.ToString());
+                            ExportText(Path.Combine(myFolderDialog.SelectedPath, Path.GetFileNameWithoutExtension(dataGridViewFiles[0, i].Value.ToString()) + ".xlsx"));
                         }
-                        workbook.Save();
                     }
                 }
+
+                MessageBox.Show("Done!", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -371,6 +398,5 @@ namespace ToradoraTranslateTool
                 "You can also import the finished translation into the program. To do this, you need an .txt file in which each sentence will be from a new line." + Environment.NewLine +
                 "Learn more at: https://github.com/12135555/ToradoraTranslateTool", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
     }
 }

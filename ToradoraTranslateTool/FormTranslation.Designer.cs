@@ -38,15 +38,18 @@
             this.ColumnOriginal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnTranslated = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStripStrings = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.itemLineBreaks = new System.Windows.Forms.ToolStripMenuItem();
             this.itemExportStrings = new System.Windows.Forms.ToolStripMenuItem();
             this.itemImportStrings = new System.Windows.Forms.ToolStripMenuItem();
             this.translateNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonFilesGridHelp = new System.Windows.Forms.Button();
             this.buttonTextGridHelp = new System.Windows.Forms.Button();
-            this.itemLineBreaks = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripFiles = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemExportAll = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFiles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStrings)).BeginInit();
             this.contextMenuStripStrings.SuspendLayout();
+            this.contextMenuStripFiles.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewFiles
@@ -61,6 +64,7 @@
             this.dataGridViewFiles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnFilename,
             this.ColumnProgress});
+            this.dataGridViewFiles.ContextMenuStrip = this.contextMenuStripFiles;
             this.dataGridViewFiles.Dock = System.Windows.Forms.DockStyle.Left;
             this.dataGridViewFiles.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewFiles.Location = new System.Drawing.Point(0, 0);
@@ -143,7 +147,15 @@
             this.itemImportStrings,
             this.translateNamesToolStripMenuItem});
             this.contextMenuStripStrings.Name = "contextMenuStrip1";
-            this.contextMenuStripStrings.Size = new System.Drawing.Size(281, 114);
+            this.contextMenuStripStrings.Size = new System.Drawing.Size(281, 92);
+            // 
+            // itemLineBreaks
+            // 
+            this.itemLineBreaks.Name = "itemLineBreaks";
+            this.itemLineBreaks.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.itemLineBreaks.Size = new System.Drawing.Size(280, 22);
+            this.itemLineBreaks.Text = "Automatically insert line breaks";
+            this.itemLineBreaks.Click += new System.EventHandler(this.itemLineBreaks_Click);
             // 
             // itemExportStrings
             // 
@@ -188,13 +200,19 @@
             this.buttonTextGridHelp.UseVisualStyleBackColor = true;
             this.buttonTextGridHelp.Click += new System.EventHandler(this.buttonTextGridHelp_Click);
             // 
-            // itemLineBreaks
+            // contextMenuStripFiles
             // 
-            this.itemLineBreaks.Name = "itemLineBreaks";
-            this.itemLineBreaks.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.itemLineBreaks.Size = new System.Drawing.Size(280, 22);
-            this.itemLineBreaks.Text = "Automatically insert line breaks";
-            this.itemLineBreaks.Click += new System.EventHandler(this.itemLineBreaks_Click);
+            this.contextMenuStripFiles.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemExportAll});
+            this.contextMenuStripFiles.Name = "contextMenuStrip1";
+            this.contextMenuStripFiles.Size = new System.Drawing.Size(181, 48);
+            // 
+            // toolStripMenuItemExportAll
+            // 
+            this.toolStripMenuItemExportAll.Name = "toolStripMenuItemExportAll";
+            this.toolStripMenuItemExportAll.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemExportAll.Text = "Export all text...";
+            this.toolStripMenuItemExportAll.Click += new System.EventHandler(this.toolStripMenuItemExportAll_Click);
             // 
             // FormTranslation
             // 
@@ -214,6 +232,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFiles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStrings)).EndInit();
             this.contextMenuStripStrings.ResumeLayout(false);
+            this.contextMenuStripFiles.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -234,5 +253,7 @@
         private System.Windows.Forms.ToolStripMenuItem itemImportStrings;
         private System.Windows.Forms.ToolStripMenuItem translateNamesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem itemLineBreaks;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripFiles;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemExportAll;
     }
 }
