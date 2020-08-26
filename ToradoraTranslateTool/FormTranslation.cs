@@ -407,15 +407,25 @@ namespace ToradoraTranslateTool
 
                 for (int i = 0; i < dataGridViewStrings.RowCount; i++)
                 {
+                    Font myFont = new Font("Calibri", 21.5f, FontStyle.Regular);
                     string translatedString = dataGridViewStrings.Rows[i].Cells[2].Value?.ToString();
-                    if (translatedString.Length > 40) // Dialog box can fit ~31 uppercase characters, and ~53 lowercase characters
-                    {
-                        var charCount = 0;
-                        var lines = translatedString.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries)
-                                        .GroupBy(w => (charCount += w.Length + 1) / 41)
-                                        .Select(g => string.Join(" ", g.ToArray()));
 
-                        dataGridViewStrings.Rows[i].Cells[2].Value = String.Join("＿", lines.ToArray());
+                    if (TextRenderer.MeasureText(translatedString, myFont).Width > 600)
+                    {
+                        string[] words = translatedString.Split();
+                        string newString = "";
+
+                        for (int j = 0; j < words.Length; j++)
+                        {
+                            string tempString = newString.Substring(newString.LastIndexOf('＿') + 1) + " " + words[j];
+
+                            if (TextRenderer.MeasureText(tempString, myFont).Width > 600)
+                                newString += "＿" + words[j];
+                            else
+                                newString += " " + words[j];
+                        }
+
+                        dataGridViewStrings.Rows[i].Cells[2].Value = newString.Trim();
                     }
                 }
 
