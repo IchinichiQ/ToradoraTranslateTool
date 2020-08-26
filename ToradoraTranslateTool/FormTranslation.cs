@@ -265,13 +265,18 @@ namespace ToradoraTranslateTool
                     {
                         for (int i = 1; i < dataGridViewFiles.RowCount; i++)
                         {
+                            dataGridViewFiles.ClearSelection(); // Select and scroll to the current file to show progress
+                            dataGridViewFiles.Rows[i].Selected = true;
+                            dataGridViewFiles.CurrentCell = dataGridViewFiles.Rows[i].Cells[0];
+                            dataGridViewFiles.Update();
+
                             LoadFile(dataGridViewFiles[0, i].Value.ToString());
                             ExportText(Path.Combine(myFolderDialog.SelectedPath, Path.GetFileNameWithoutExtension(dataGridViewFiles[0, i].Value.ToString()) + ".xlsx"));
                         }
+
+                        MessageBox.Show("Done!", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
-
-                MessageBox.Show("Done!", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -326,14 +331,19 @@ namespace ToradoraTranslateTool
                             string txtFilename = Path.Combine(myFolderDialog.SelectedPath, objName + ".txt");
                             if (File.Exists(txtFilename))
                             {
+                                dataGridViewFiles.ClearSelection(); // Select and scroll to the current file to show progress
+                                dataGridViewFiles.Rows[i].Selected = true;
+                                dataGridViewFiles.CurrentCell = dataGridViewFiles.Rows[i].Cells[0];
+                                dataGridViewFiles.Update();
+
                                 LoadFile(objName);
                                 ImportText(txtFilename);
                             }
                         }
-                    }
-                }
 
-                MessageBox.Show("Done!", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Done!", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }              
             }
             catch (Exception ex)
             {
