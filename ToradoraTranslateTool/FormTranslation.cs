@@ -343,7 +343,7 @@ namespace ToradoraTranslateTool
 
                         MessageBox.Show("Done!", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                }              
+                }
             }
             catch (Exception ex)
             {
@@ -395,6 +395,33 @@ namespace ToradoraTranslateTool
             myForm.Show();
         }
 
+        private void InsertLineBreaks()
+        {
+            for (int i = 0; i < dataGridViewStrings.RowCount; i++)
+            {
+                Font myFont = new Font("Calibri", 21.5f, FontStyle.Regular);
+                string translatedString = dataGridViewStrings.Rows[i].Cells[2].Value?.ToString();
+
+                if (TextRenderer.MeasureText(translatedString, myFont).Width > 600)
+                {
+                    string[] words = translatedString.Split();
+                    string newString = "";
+
+                    for (int j = 0; j < words.Length; j++)
+                    {
+                        string tempString = newString.Substring(newString.LastIndexOf('＿') + 1) + " " + words[j];
+
+                        if (TextRenderer.MeasureText(tempString, myFont).Width > 600)
+                            newString += "＿" + words[j];
+                        else
+                            newString += " " + words[j];
+                    }
+
+                    dataGridViewStrings.Rows[i].Cells[2].Value = newString.Trim();
+                }
+            }
+        }
+
         private void itemLineBreaks_Click(object sender, EventArgs e)
         {
             try
@@ -405,30 +432,77 @@ namespace ToradoraTranslateTool
                     return;
                 }
 
-                for (int i = 0; i < dataGridViewStrings.RowCount; i++)
+                InsertLineBreaks();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error!" + Environment.NewLine + ex.ToString(), "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void itemLineBreaksAll_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                for (int i = 1; i < dataGridViewFiles.RowCount; i++)
                 {
-                    Font myFont = new Font("Calibri", 21.5f, FontStyle.Regular);
-                    string translatedString = dataGridViewStrings.Rows[i].Cells[2].Value?.ToString();
+                    string objName = dataGridViewFiles[0, i].Value.ToString();
 
-                    if (TextRenderer.MeasureText(translatedString, myFont).Width > 600)
-                    {
-                        string[] words = translatedString.Split();
-                        string newString = "";
+                    dataGridViewFiles.ClearSelection(); // Select and scroll to the current file to show progress
+                    dataGridViewFiles.Rows[i].Selected = true;
+                    dataGridViewFiles.CurrentCell = dataGridViewFiles.Rows[i].Cells[0];
+                    dataGridViewFiles.Update();
 
-                        for (int j = 0; j < words.Length; j++)
-                        {
-                            string tempString = newString.Substring(newString.LastIndexOf('＿') + 1) + " " + words[j];
+                    LoadFile(objName);
+                    InsertLineBreaks();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error!" + Environment.NewLine + ex.ToString(), "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-                            if (TextRenderer.MeasureText(tempString, myFont).Width > 600)
-                                newString += "＿" + words[j];
-                            else
-                                newString += " " + words[j];
-                        }
+        private void RemoveLineBreaks()
+        {
+            for (int i = 0; i < dataGridViewStrings.RowCount; i++)
+                dataGridViewStrings.Rows[i].Cells[2].Value = dataGridViewStrings.Rows[i].Cells[2].Value?.ToString().Replace('＿', ' ');
+        }
 
-                        dataGridViewStrings.Rows[i].Cells[2].Value = newString.Trim();
-                    }
+        private void itemRemoveLineBreaks_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (currentFile == null)
+                {
+                    MessageBox.Show("First select the file!", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
 
+                RemoveLineBreaks();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error!" + Environment.NewLine + ex.ToString(), "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void itemRemoveLineBreaksAll_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                for (int i = 1; i < dataGridViewFiles.RowCount; i++)
+                {
+                    string objName = dataGridViewFiles[0, i].Value.ToString();
+
+                    dataGridViewFiles.ClearSelection(); // Select and scroll to the current file to show progress
+                    dataGridViewFiles.Rows[i].Selected = true;
+                    dataGridViewFiles.CurrentCell = dataGridViewFiles.Rows[i].Cells[0];
+                    dataGridViewFiles.Update();
+
+                    LoadFile(objName);
+                    RemoveLineBreaks();
+                }
             }
             catch (Exception ex)
             {
