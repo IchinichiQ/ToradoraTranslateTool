@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using OBJEditor;
 using Newtonsoft.Json.Linq;
 using System.Reflection;
-using PicoXLSX;
+using NanoXLSX;
 
 namespace ToradoraTranslateTool
 {
@@ -286,13 +284,26 @@ namespace ToradoraTranslateTool
         #endregion
 
         #region Text import
-        private void ImportText(string filename)
+        private void ImportText(string filename, int column, int cell)
         {
-            string[] myStrings = File.ReadAllLines(filename);
-            for (int i = 0; i < myStrings.Length; i++)
+            Workbook myWorkbook = Workbook.Load(filename);
+            for (int i = cell; i <= dataGridViewStrings.RowCount; i++)
             {
-                dataGridViewStrings.Rows[i].Cells[2].Value = myStrings[i];
+                string cellKey = GetColumnName(column - 1) + i.ToString();
+                dataGridViewStrings.Rows[i - 1].Cells[2].Value = myWorkbook.CurrentWorksheet.Cells[cellKey].Value;
             }
+        }
+
+        static string GetColumnName(int index)
+        {
+            const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var value = "";
+
+            if (index >= letters.Length)
+                value += letters[index / letters.Length - 1];
+            value += letters[index % letters.Length];
+
+            return value;
         }
 
         private void itemImportStrings_Click(object sender, EventArgs e)
@@ -307,10 +318,13 @@ namespace ToradoraTranslateTool
 
                 using (OpenFileDialog myOpenFileDialog = new OpenFileDialog())
                 {
-                    myOpenFileDialog.Filter = "Text file (*.txt) | *.txt";
-
+                    myOpenFileDialog.Filter = "Xlsx table (*.xlsx) | *.xlsx";
                     if (myOpenFileDialog.ShowDialog() == DialogResult.OK)
-                        ImportText(myOpenFileDialog.FileName);
+                    {
+                        FormImport myForm = new FormImport();
+                        if (myForm.ShowDialog() == DialogResult.OK)
+                            ImportText(myOpenFileDialog.FileName, myForm.Column, myForm.Cell);
+                    }
                 }
             }
             catch (Exception ex)
@@ -327,21 +341,26 @@ namespace ToradoraTranslateTool
                 {
                     if (myFolderDialog.ShowDialog() == DialogResult.OK)
                     {
-                        for (int i = 1; i < dataGridViewFiles.RowCount; i++)
+                        FormImport myForm = new FormImport();
+                        if (myForm.ShowDialog() == DialogResult.OK)
                         {
-                            string objName = dataGridViewFiles[0, i].Value.ToString();
-                            string txtFilename = Path.Combine(myFolderDialog.SelectedPath, objName + ".txt");
-                            if (File.Exists(txtFilename))
+                            for (int i = 1; i < dataGridViewFiles.RowCount; i++)
                             {
-                                dataGridViewFiles.ClearSelection(); // Select and scroll to the current file to show progress
-                                dataGridViewFiles.Rows[i].Selected = true;
-                                dataGridViewFiles.CurrentCell = dataGridViewFiles.Rows[i].Cells[0];
-                                dataGridViewFiles.Update();
+                                string objName = dataGridViewFiles[0, i].Value.ToString();
+                                string xlsxFilename = Path.Combine(myFolderDialog.SelectedPath, Path.GetFileNameWithoutExtension(objName) + ".xlsx");
+                                if (File.Exists(xlsxFilename))
+                                {
+                                    dataGridViewFiles.ClearSelection(); // Select and scroll to the current file to show progress
+                                    dataGridViewFiles.Rows[i].Selected = true;
+                                    dataGridViewFiles.CurrentCell = dataGridViewFiles.Rows[i].Cells[0];
+                                    dataGridViewFiles.Update();
 
-                                LoadFile(objName);
-                                ImportText(txtFilename);
+                                    LoadFile(objName);
+                                    ImportText(xlsxFilename, myForm.Column, myForm.Cell);
+                                }
                             }
                         }
+                        myForm.Dispose();
 
                         MessageBox.Show("Done!", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -522,7 +541,7 @@ namespace ToradoraTranslateTool
             MessageBox.Show("This table contains 363 files with 26508 lines to be translated." + Environment.NewLine +
                 "Double-click a file to load it." + Environment.NewLine +
                 "You can export and import text from all files from the context menu." + Environment.NewLine +
-                "To import a translated text, you need to create a text file in which each string will be from a new line. This file must have the same name as the .obj file, for example \"_0000ESS1.obj.txt\"", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                "To import the translated text, you need to rename your .xlsx files according to the name of the .obj file, for example, \"_0000ESS1.xlsx\".", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void buttonTextGridHelp_Click(object sender, EventArgs e)
@@ -531,7 +550,7 @@ namespace ToradoraTranslateTool
                 "All entered data will be automatically saved for later use." + Environment.NewLine +
                 "The brackets \"（\" and \"）\" will be added to the translated text automatically" + Environment.NewLine +
                 "You can export all rows to a .xlsx file from the context menu." + Environment.NewLine +
-                "You can also import the finished translation into the program. To do this, you need an .txt file in which each sentence will be from a new line." + Environment.NewLine +
+                "You can also import the finished translation from .xlsx tables into the program." + Environment.NewLine +
                 "Learn more at: https://github.com/12135555/ToradoraTranslateTool", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
