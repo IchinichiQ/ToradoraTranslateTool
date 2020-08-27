@@ -44,12 +44,12 @@
             this.itemLineBreaks = new System.Windows.Forms.ToolStripMenuItem();
             this.itemExportStrings = new System.Windows.Forms.ToolStripMenuItem();
             this.itemImportStrings = new System.Windows.Forms.ToolStripMenuItem();
-            this.translateNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonFilesGridHelp = new System.Windows.Forms.Button();
             this.buttonTextGridHelp = new System.Windows.Forms.Button();
             this.itemRemoveLineBreaks = new System.Windows.Forms.ToolStripMenuItem();
             this.itemLineBreaksAll = new System.Windows.Forms.ToolStripMenuItem();
             this.itemRemoveLineBreaksAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemTranslateNames = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFiles)).BeginInit();
             this.contextMenuStripFiles.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStrings)).BeginInit();
@@ -100,10 +100,11 @@
             this.contextMenuStripFiles.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemExportAll,
             this.itemImportAll,
+            this.itemTranslateNames,
             this.itemLineBreaksAll,
             this.itemRemoveLineBreaksAll});
             this.contextMenuStripFiles.Name = "contextMenuStrip1";
-            this.contextMenuStripFiles.Size = new System.Drawing.Size(240, 114);
+            this.contextMenuStripFiles.Size = new System.Drawing.Size(240, 136);
             // 
             // toolStripMenuItemExportAll
             // 
@@ -173,10 +174,9 @@
             this.itemLineBreaks,
             this.itemRemoveLineBreaks,
             this.itemExportStrings,
-            this.itemImportStrings,
-            this.translateNamesToolStripMenuItem});
+            this.itemImportStrings});
             this.contextMenuStripStrings.Name = "contextMenuStrip1";
-            this.contextMenuStripStrings.Size = new System.Drawing.Size(281, 114);
+            this.contextMenuStripStrings.Size = new System.Drawing.Size(281, 92);
             // 
             // itemLineBreaks
             // 
@@ -199,13 +199,6 @@
             this.itemImportStrings.Size = new System.Drawing.Size(280, 22);
             this.itemImportStrings.Text = "Import translated strings...";
             this.itemImportStrings.Click += new System.EventHandler(this.itemImportStrings_Click);
-            // 
-            // translateNamesToolStripMenuItem
-            // 
-            this.translateNamesToolStripMenuItem.Name = "translateNamesToolStripMenuItem";
-            this.translateNamesToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
-            this.translateNamesToolStripMenuItem.Text = "Translate names...";
-            this.translateNamesToolStripMenuItem.Click += new System.EventHandler(this.translateNamesToolStripMenuItem_Click);
             // 
             // buttonFilesGridHelp
             // 
@@ -250,6 +243,13 @@
             this.itemRemoveLineBreaksAll.Text = "Remove line breaks everywhere";
             this.itemRemoveLineBreaksAll.Click += new System.EventHandler(this.itemRemoveLineBreaksAll_Click);
             // 
+            // itemTranslateNames
+            // 
+            this.itemTranslateNames.Name = "itemTranslateNames";
+            this.itemTranslateNames.Size = new System.Drawing.Size(239, 22);
+            this.itemTranslateNames.Text = "Translate names...";
+            this.itemTranslateNames.Click += new System.EventHandler(this.itemTranslateNames_Click);
+            // 
             // FormTranslation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -287,7 +287,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripStrings;
         private System.Windows.Forms.ToolStripMenuItem itemExportStrings;
         private System.Windows.Forms.ToolStripMenuItem itemImportStrings;
-        private System.Windows.Forms.ToolStripMenuItem translateNamesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem itemLineBreaks;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripFiles;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemExportAll;
@@ -295,5 +294,6 @@
         private System.Windows.Forms.ToolStripMenuItem itemLineBreaksAll;
         private System.Windows.Forms.ToolStripMenuItem itemRemoveLineBreaks;
         private System.Windows.Forms.ToolStripMenuItem itemRemoveLineBreaksAll;
+        private System.Windows.Forms.ToolStripMenuItem itemTranslateNames;
     }
 }

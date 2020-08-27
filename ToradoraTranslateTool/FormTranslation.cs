@@ -411,7 +411,7 @@ namespace ToradoraTranslateTool
             return uniqueNames;
         }
 
-        private void translateNamesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void itemTranslateNames_Click(object sender, EventArgs e)
         {
             FormNames myForm = new FormNames(GetAllNames());
             myForm.Show();
