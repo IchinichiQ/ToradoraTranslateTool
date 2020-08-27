@@ -33,7 +33,6 @@ namespace ToradoraTranslateTool
             BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
             null, dataGridViewFiles, new object[] { true });
 
-
             try
             {
                 if (!File.Exists(mainFilePath))
@@ -217,6 +216,7 @@ namespace ToradoraTranslateTool
             }
         }
 
+        #region Text export
         private void ExportText(string filename)
         {
             Workbook workbook = new Workbook(filename, "Sheet1");
@@ -283,7 +283,9 @@ namespace ToradoraTranslateTool
                 MessageBox.Show("Error!" + Environment.NewLine + ex.ToString(), "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        #endregion
 
+        #region Text import
         private void ImportText(string filename)
         {
             string[] myStrings = File.ReadAllLines(filename);
@@ -350,6 +352,7 @@ namespace ToradoraTranslateTool
                 MessageBox.Show("Error!" + Environment.NewLine + ex.ToString(), "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        #endregion
 
         private void updateTotalPercent()
         {
@@ -395,6 +398,7 @@ namespace ToradoraTranslateTool
             myForm.Show();
         }
 
+        #region Line breaks inserting
         private void InsertLineBreaks()
         {
             for (int i = 0; i < dataGridViewStrings.RowCount; i++)
@@ -462,7 +466,9 @@ namespace ToradoraTranslateTool
                 MessageBox.Show("Error!" + Environment.NewLine + ex.ToString(), "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        #endregion
 
+        #region Line breaks removing
         private void RemoveLineBreaks()
         {
             for (int i = 0; i < dataGridViewStrings.RowCount; i++)
@@ -509,6 +515,7 @@ namespace ToradoraTranslateTool
                 MessageBox.Show("Error!" + Environment.NewLine + ex.ToString(), "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        #endregion
 
         private void buttonFilesGridHelp_Click(object sender, EventArgs e)
         {
