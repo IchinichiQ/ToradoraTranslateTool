@@ -266,10 +266,10 @@ namespace ToradoraTranslateTool
                             dataGridViewFiles.ClearSelection(); // Select and scroll to the current file to show progress
                             dataGridViewFiles.Rows[i].Selected = true;
                             dataGridViewFiles.CurrentCell = dataGridViewFiles.Rows[i].Cells[0];
-                            dataGridViewFiles.Update();
 
                             LoadFile(dataGridViewFiles[0, i].Value.ToString());
                             ExportText(Path.Combine(myFolderDialog.SelectedPath, Path.GetFileNameWithoutExtension(dataGridViewFiles[0, i].Value.ToString()) + ".xlsx"));
+                            Application.DoEvents();
                         }
 
                         MessageBox.Show("Done!", "ToradoraTranslateTool", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -353,10 +353,10 @@ namespace ToradoraTranslateTool
                                     dataGridViewFiles.ClearSelection(); // Select and scroll to the current file to show progress
                                     dataGridViewFiles.Rows[i].Selected = true;
                                     dataGridViewFiles.CurrentCell = dataGridViewFiles.Rows[i].Cells[0];
-                                    dataGridViewFiles.Update();
 
                                     LoadFile(objName);
                                     ImportText(xlsxFilename, myForm.Column, myForm.Cell);
+                                    Application.DoEvents();
                                 }
                             }
                         }
@@ -474,10 +474,10 @@ namespace ToradoraTranslateTool
                     dataGridViewFiles.ClearSelection(); // Select and scroll to the current file to show progress
                     dataGridViewFiles.Rows[i].Selected = true;
                     dataGridViewFiles.CurrentCell = dataGridViewFiles.Rows[i].Cells[0];
-                    dataGridViewFiles.Update();
 
                     LoadFile(objName);
                     InsertLineBreaks();
+                    Application.DoEvents();
                 }
             }
             catch (Exception ex)
@@ -523,10 +523,10 @@ namespace ToradoraTranslateTool
                     dataGridViewFiles.ClearSelection(); // Select and scroll to the current file to show progress
                     dataGridViewFiles.Rows[i].Selected = true;
                     dataGridViewFiles.CurrentCell = dataGridViewFiles.Rows[i].Cells[0];
-                    dataGridViewFiles.Update();
 
                     LoadFile(objName);
                     RemoveLineBreaks();
+                    Application.DoEvents();
                 }
             }
             catch (Exception ex)
