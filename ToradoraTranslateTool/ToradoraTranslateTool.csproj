@@ -10,7 +10,7 @@
     <AssemblyName>ToradoraTranslateTool</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -157,9 +157,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="7z.dll">
@@ -407,4 +404,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y /d  "$(TargetDir)\*.dll" "$(TargetDir)Bin\"
+del "$(TargetDir)\*.dll"
+
+xcopy /y /d  "$(TargetDir)\*.pdb" "$(TargetDir)Bin\"
+del "$(TargetDir)\*.pdb"
+
+xcopy /y /d  "$(TargetDir)\*.xml" "$(TargetDir)Bin\"
+del "$(TargetDir)\*.xml"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
