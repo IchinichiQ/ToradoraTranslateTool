@@ -1,7 +1,7 @@
-You can find the translated images and some text files in the "first" and "resources" folders.
+You can find the translatable images and some text files in the "first" and "resources" folders.
 You need to edit the text in them, and paste them into the game files. Before that you need to unpack the game files in the ToradoraTranslateTool.
 
-To do this, move the edited file to the "!Tools" folder and run the .bat file (TxtToGz.bat for text files, and PngToGimGz.bat for images).
+To do this, move the edited file to the "!Tools" folder and run the relevant .bat file - !BGPngToGim.bat for the backgrounds, !PngToGimGz.bat for "image_main", "image_title" and "image_sharing" images, !PngToGim.bat for all other images.
 After that you will get the game file which you need to move to /Data/DatWorker/ folder along the same path as it was in this folder.
 Try to leave the size of the letters the same as it was. Otherwise, you may have problems displaying them. Also do not change the size of images.
 
@@ -12,4 +12,3 @@ You will need to change these coordinates, depending on the location of the name
 You can also translate the place names in placename.txt. In this file, you only need to change the names, without the coordinates.
 
 All text files have Shift-JIS encoding. You can use Notepad++ to edit them.
-The background must have a .gim extension, and all other images must have a .gim.gz extension.
