@@ -34,6 +34,8 @@
             this.buttonExtractGame = new System.Windows.Forms.Button();
             this.buttonTranslate = new System.Windows.Forms.Button();
             this.buttonRepackGame = new System.Windows.Forms.Button();
+            this.contextMenuStripDebug = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.itemDebugMode = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRepackIso = new System.Windows.Forms.Button();
             this.buttonExtractIsoHelp = new System.Windows.Forms.Button();
             this.buttonExtractGameHelp = new System.Windows.Forms.Button();
@@ -45,11 +47,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.timerWork = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.contextMenuStripDebug = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.itemDebugMode = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripDebug.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
-            this.contextMenuStripDebug.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonExtractIso
@@ -95,6 +95,20 @@
             this.buttonRepackGame.Text = "Repack game files";
             this.buttonRepackGame.UseVisualStyleBackColor = true;
             this.buttonRepackGame.Click += new System.EventHandler(this.buttonRepackGame_Click);
+            // 
+            // contextMenuStripDebug
+            // 
+            this.contextMenuStripDebug.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.itemDebugMode});
+            this.contextMenuStripDebug.Name = "contextMenuStripDebug";
+            this.contextMenuStripDebug.Size = new System.Drawing.Size(144, 26);
+            // 
+            // itemDebugMode
+            // 
+            this.itemDebugMode.CheckOnClick = true;
+            this.itemDebugMode.Name = "itemDebugMode";
+            this.itemDebugMode.Size = new System.Drawing.Size(143, 22);
+            this.itemDebugMode.Text = "Debug mode";
             // 
             // buttonRepackIso
             // 
@@ -211,21 +225,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(31, 13);
             this.label1.TabIndex = 13;
-            this.label1.Text = "1.1.0";
-            // 
-            // contextMenuStripDebug
-            // 
-            this.contextMenuStripDebug.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itemDebugMode});
-            this.contextMenuStripDebug.Name = "contextMenuStripDebug";
-            this.contextMenuStripDebug.Size = new System.Drawing.Size(181, 48);
-            // 
-            // itemDebugMode
-            // 
-            this.itemDebugMode.CheckOnClick = true;
-            this.itemDebugMode.Name = "itemDebugMode";
-            this.itemDebugMode.Size = new System.Drawing.Size(180, 22);
-            this.itemDebugMode.Text = "Debug mode";
+            this.label1.Text = "1.2.0";
             // 
             // FormMain
             // 
@@ -242,9 +242,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ToradoraTranslateTool";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
+            this.contextMenuStripDebug.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.contextMenuStripDebug.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
