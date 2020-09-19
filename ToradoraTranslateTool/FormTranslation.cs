@@ -425,7 +425,7 @@ namespace ToradoraTranslateTool
                 Font myFont = new Font("Calibri", 21.5f, FontStyle.Regular);
                 string translatedString = dataGridViewStrings.Rows[i].Cells[2].Value?.ToString();
 
-                if (TextRenderer.MeasureText(translatedString, myFont).Width > 600)
+                if (TextRenderer.MeasureText(translatedString, myFont).Width > 600 && !translatedString.Contains('＿'))
                 {
                     string[] words = translatedString.Split();
                     string newString = "";
