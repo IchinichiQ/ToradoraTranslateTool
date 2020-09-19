@@ -10,7 +10,7 @@ After you got the ISO file, just open the program, and start with the first stag
 
 The instruction on the images translation is written in Images/HowTo.txt.
 
-The game automatically moves the text to a new line if it doesn't fit into the dialog box, so you don't have to put a line break sign. But if you need to move the text to a new line, insert the symbol Fullwidth Low Line - "＿".
+You can automatically insert line breaks into the current file or all files at once through the context menu. But if you need to move the text to a new line manually, insert the symbol Fullwidth Low Line - "＿".
 
 ## Features
 
@@ -18,6 +18,8 @@ The game automatically moves the text to a new line if it doesn't fit into the d
 - Extracting and repacking of all game files
 - Extracting and importing of strings
 - Calculation of translation percentage
+- Automatic line break insertion
+- Enabling game debug mode, where you can teleport to any level
 
 ## Special thanks
 
