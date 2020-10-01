@@ -94,7 +94,7 @@ namespace ToradoraTranslateTool
                 string filepath = Path.Combine(Application.StartupPath, "Data", "Obj", currentFile, currentFile);
                 OBJHelper myHelper = new OBJHelper(File.ReadAllBytes(filepath));
                 myStrings = myHelper.Import();
-                myNames = myHelper.Actors;
+                myNames = myHelper.actors;
             }
             else // Else it is .txt file
             {
@@ -398,7 +398,7 @@ namespace ToradoraTranslateTool
                 OBJHelper myHelper = new OBJHelper(File.ReadAllBytes(filepath));
                 Dictionary<int, string> myNames = new Dictionary<int, string>();
                 myHelper.Import();
-                myNames = myHelper.Actors;
+                myNames = myHelper.actors;
 
                 for (int ii = 0; ii < myNames.Count; ii++)
                 {

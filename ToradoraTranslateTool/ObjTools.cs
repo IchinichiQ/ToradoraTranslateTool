@@ -103,7 +103,7 @@ namespace ToradoraTranslateTool
                     string filepath = Path.Combine(Application.StartupPath, "Data", "Obj", name, name);
                     OBJHelper myHelper = new OBJHelper(File.ReadAllBytes(filepath));
                     string[] scriptStrings = myHelper.Import();
-                    Dictionary<int,string> scriptNames = myHelper.Actors;
+                    Dictionary<int,string> scriptNames = myHelper.actors;
 
                     for (int i = 0; i < scriptStrings.Length; i++)
                     {
