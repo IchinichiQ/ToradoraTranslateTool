@@ -10,6 +10,7 @@ using OBJEditor;
 using Newtonsoft.Json.Linq;
 using System.Reflection;
 using NanoXLSX;
+using System.Text.RegularExpressions;
 
 namespace ToradoraTranslateTool
 {
@@ -418,31 +419,39 @@ namespace ToradoraTranslateTool
         }
 
         #region Line breaks inserting
-        private void InsertLineBreaks()
-        {
-            for (int i = 0; i < dataGridViewStrings.RowCount; i++)
+        private string InsertLineBreaks(string insertTo)
+        {          
+            string newString = "";
+            string secondString = null;
+            if (insertTo.Contains("[") && insertTo.Contains("]"))
             {
-                Font myFont = new Font("Calibri", 21.5f, FontStyle.Regular);
-                string translatedString = dataGridViewStrings.Rows[i].Cells[2].Value?.ToString();
-
-                if (TextRenderer.MeasureText(translatedString, myFont).Width > 600 && !translatedString.Contains('＿'))
-                {
-                    string[] words = translatedString.Split();
-                    string newString = "";
-
-                    for (int j = 0; j < words.Length; j++)
-                    {
-                        string tempString = newString.Substring(newString.LastIndexOf('＿') + 1) + " " + words[j];
-
-                        if (TextRenderer.MeasureText(tempString, myFont).Width > 600)
-                            newString += "＿" + words[j];
-                        else
-                            newString += " " + words[j];
-                    }
-
-                    dataGridViewStrings.Rows[i].Cells[2].Value = newString.Trim();
-                }
+                secondString = Regex.Match(insertTo, @"\[(.*?)\]").Groups[1].Value;
+                insertTo = insertTo.Replace("[" + secondString + "]", "");
             }
+
+            Font myFont = new Font("Calibri", 21.5f, FontStyle.Regular);
+            if (TextRenderer.MeasureText(insertTo, myFont).Width > 600 && !insertTo.Contains('＿'))
+            {
+                string[] words = insertTo.Split();
+
+                for (int j = 0; j < words.Length; j++)
+                {
+                    string tempString = newString.Substring(newString.LastIndexOf('＿') + 1) + " " + words[j];
+
+                    if (TextRenderer.MeasureText(tempString, myFont).Width > 600)
+                        newString += "＿" + words[j];
+                    else
+                        newString += " " + words[j];
+                }
+                newString = newString.Trim();
+            }
+            else
+                newString = insertTo;
+                
+            if (secondString != null)
+                newString += "[" + InsertLineBreaks(secondString) + "]";
+
+            return newString;
         }
 
         private void itemLineBreaks_Click(object sender, EventArgs e)
@@ -455,7 +464,8 @@ namespace ToradoraTranslateTool
                     return;
                 }
 
-                InsertLineBreaks();
+                for (int i = 0; i < dataGridViewStrings.RowCount; i++)
+                    dataGridViewStrings.Rows[i].Cells[2].Value = InsertLineBreaks(dataGridViewStrings.Rows[i].Cells[2].Value?.ToString());
             }
             catch (Exception ex)
             {
@@ -476,7 +486,8 @@ namespace ToradoraTranslateTool
                     dataGridViewFiles.CurrentCell = dataGridViewFiles.Rows[i].Cells[0];
 
                     LoadFile(objName);
-                    InsertLineBreaks();
+                    for (int j = 0; j < dataGridViewStrings.RowCount; j++)
+                        dataGridViewStrings.Rows[j].Cells[2].Value = InsertLineBreaks(dataGridViewStrings.Rows[j].Cells[2].Value?.ToString());
                     Application.DoEvents();
                 }
             }
