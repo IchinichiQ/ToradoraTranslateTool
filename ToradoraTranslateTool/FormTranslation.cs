@@ -291,7 +291,14 @@ namespace ToradoraTranslateTool
             for (int i = cell; i <= dataGridViewStrings.RowCount; i++)
             {
                 string cellKey = GetColumnName(column - 1) + i.ToString();
-                dataGridViewStrings.Rows[i - 1].Cells[2].Value = myWorkbook.CurrentWorksheet.Cells[cellKey].Value;
+                try
+                {
+                    dataGridViewStrings.Rows[i - 1].Cells[2].Value = myWorkbook.CurrentWorksheet.Cells[cellKey].Value;
+                }
+                catch (KeyNotFoundException ex) when (ex.HResult == -2146232969) // NanoXLSX returns KeyNotFoundException if cell is empty
+                {
+                    dataGridViewStrings.Rows[i - 1].Cells[2].Value = "";
+                }
             }
         }
 
