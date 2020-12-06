@@ -98,39 +98,40 @@ namespace ToradoraTranslateTool
 
             foreach (string name in directories)
             {
-                if (mainFile[name] != null)  // If json have translation for that file
-                {
-                    string filepath = Path.Combine(Application.StartupPath, "Data", "Obj", name, name);
-                    OBJHelper myHelper = new OBJHelper(File.ReadAllBytes(filepath));
-                    string[] scriptStrings = myHelper.Import();
-                    Dictionary<int,string> scriptNames = myHelper.actors;
+                string filepath = Path.Combine(Application.StartupPath, "Data", "Obj", name, name);
+                OBJHelper myHelper = new OBJHelper(File.ReadAllBytes(filepath));
+                string[] scriptStrings = myHelper.Import();
+                Dictionary<int, string> scriptNames = myHelper.actors;
 
-                    for (int i = 0; i < scriptStrings.Length; i++)
+                bool haveTranslation = mainFile[name] != null;
+                for (int i = 0; i < scriptStrings.Length; i++)
+                {
+                    if (haveTranslation)
                     {
                         string translatedString = mainFile[name][i.ToString()].ToString();
                         if (translatedString != "")
                             scriptStrings[i] = translatedString;
-
-                        if (scriptNames[i] != null && translatedNames.ContainsKey(scriptNames[i]))
-                            scriptNames[i] = translatedNames[scriptNames[i]];
                     }
 
-                    File.WriteAllBytes(Path.Combine(toolsDirectory, name), myHelper.Export(scriptStrings));
-
-                    Process myProc = new Process();
-                    myProc.StartInfo.FileName = Path.Combine(toolsDirectory, "gzip.exe");
-                    myProc.StartInfo.Arguments = "-n9 -f " + name; // Without -n9 the game will freeze
-                    myProc.StartInfo.WorkingDirectory = toolsDirectory;
-                    myProc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    myProc.Start();
-                    myProc.WaitForExit();
-
-                    File.Delete(Path.Combine(toolsDirectory, name));
-
-                    File.Replace(Path.Combine(toolsDirectory, name + ".gz"), Application.StartupPath + File.ReadAllText(filepath + ".txt"), null);
+                    if (scriptNames[i] != null && translatedNames.ContainsKey(scriptNames[i]))
+                        scriptNames[i] = translatedNames[scriptNames[i]];
                 }
+
+                File.WriteAllBytes(Path.Combine(toolsDirectory, name), myHelper.Export(scriptStrings));
+
+                Process myProc = new Process();
+                myProc.StartInfo.FileName = Path.Combine(toolsDirectory, "gzip.exe");
+                myProc.StartInfo.Arguments = "-n9 -f " + name; // Without -n9 the game will freeze
+                myProc.StartInfo.WorkingDirectory = toolsDirectory;
+                myProc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                myProc.Start();
+                myProc.WaitForExit();
+
+                File.Delete(Path.Combine(toolsDirectory, name));
+
+                File.Replace(Path.Combine(toolsDirectory, name + ".gz"), Application.StartupPath + File.ReadAllText(filepath + ".txt"), null);
             }
-         
+
             if (debugMode)
                 File.Copy(Path.Combine(Application.StartupPath, "Data", "Debug", "_0000ESS1.obj.gz"), Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource", "script", "_0000ESS1", "_0000ESS1.0001", "_0000ESS1.obj.gz"), true); // This file enables debug mode
         }
@@ -148,7 +149,7 @@ namespace ToradoraTranslateTool
                     string filepath = Path.Combine(Application.StartupPath, "Data", "Txt", name, name);
                     string[] fileLines = File.ReadAllLines(filepath, new UnicodeEncoding(false, false)); ;
 
-                    for(int i = 0; i < fileLines.Length; i++)
+                    for (int i = 0; i < fileLines.Length; i++)
                     {
                         string translatedString = mainFile[name][i.ToString()].ToString();
                         if (translatedString != "")
