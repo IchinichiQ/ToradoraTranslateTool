@@ -46,7 +46,7 @@
             this.labelWork = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.timerWork = new System.Windows.Forms.Timer(this.components);
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelVersion = new System.Windows.Forms.Label();
             this.contextMenuStripDebug.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -217,22 +217,22 @@
             this.timerWork.Interval = 500;
             this.timerWork.Tick += new System.EventHandler(this.timerWork_Tick);
             // 
-            // label1
+            // labelVersion
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.label1.Location = new System.Drawing.Point(10, 216);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(31, 13);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "1.2.0";
+            this.labelVersion.AutoSize = true;
+            this.labelVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.labelVersion.Location = new System.Drawing.Point(10, 216);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(34, 13);
+            this.labelVersion.TabIndex = 13;
+            this.labelVersion.Text = "X.X.X";
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(446, 239);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -266,7 +266,7 @@
         private System.Windows.Forms.Label labelWork;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Timer timerWork;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDebug;
         private System.Windows.Forms.ToolStripMenuItem itemDebugMode;
     }

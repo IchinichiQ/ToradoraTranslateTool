@@ -18,7 +18,11 @@ namespace ToradoraTranslateTool
         public FormMain()
         {
             InitializeComponent();
+
             EnableButtons();
+
+            string version = Application.ProductVersion;
+            labelVersion.Text = version.Substring(0, version.Length - 2); // Convert X.X.X.X to X.X.X
         }
 
         // TODO:
