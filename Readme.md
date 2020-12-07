@@ -20,6 +20,7 @@ You can automatically insert line breaks into the current file or all files at o
 - Calculation of translation percentage
 - Automatic line break insertion
 - Enabling game debug mode, where you can teleport to any level
+- Ability to remove/add phrases in dialogs
 
 ## Special thanks
 
