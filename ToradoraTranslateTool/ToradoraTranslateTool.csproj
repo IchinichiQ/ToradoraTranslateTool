@@ -128,12 +128,15 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="Data\DatWorker\Workspace\!xp.bat">
+    <Content Include="Data\DatWorker\Workspace\!xp.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Debug\_0000ESS1.obj.gz">
+    </Content>
+    <Content Include="Data\Debug\STARTPOINT.obj.gz">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
+    <Content Include="Data\Debug\_0000ESS1.obj.gz">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Images\!!Tools\!BGPngToGim.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

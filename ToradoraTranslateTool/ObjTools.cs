@@ -25,8 +25,11 @@ namespace ToradoraTranslateTool
 
             foreach (string archive in archives)
             {
-                if (Path.GetFileName(archive) == "STARTPOINT.obj.gz") // This file can't be translated
+                if (Path.GetFileName(archive) == "STARTPOINT.obj.gz") // Save the original debug menu because it will be replaced by the one I translated
+                {
+                    File.Copy(archive, Path.Combine(Application.StartupPath, "Data", "Debug", "original_STARTPOINT.obj.gz"));
                     continue;
+                }
 
                 string newPath = Path.Combine(Application.StartupPath, "Data", "Obj", Path.GetFileNameWithoutExtension(archive), Path.GetFileName(archive)); // Data\Obj\%obj name%\%obj archive%
                 Directory.CreateDirectory(Path.GetDirectoryName(newPath));
@@ -133,7 +136,12 @@ namespace ToradoraTranslateTool
             }
 
             if (debugMode)
+            {
                 File.Copy(Path.Combine(Application.StartupPath, "Data", "Debug", "_0000ESS1.obj.gz"), Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource", "script", "_0000ESS1", "_0000ESS1.0001", "_0000ESS1.obj.gz"), true); // This file enables debug mode
+                File.Copy(Path.Combine(Application.StartupPath, "Data", "Debug", "STARTPOINT.obj.gz"), Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource", "script", "STARTPOINT", "STARTPOINT.0001", "STARTPOINT.obj.gz"), true); // This is pretranslated debug menu 
+            }
+            else
+                File.Copy(Path.Combine(Application.StartupPath, "Data", "Debug", "original_STARTPOINT.obj.gz"), Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource", "script", "STARTPOINT", "STARTPOINT.0001", "STARTPOINT.obj.gz"), true); // Restore original debug menu        
         }
 
         public static void RepackTxt()
