@@ -27,7 +27,7 @@ namespace ToradoraTranslateTool
             {
                 if (Path.GetFileName(archive) == "STARTPOINT.obj.gz") // Save the original debug menu because it will be replaced by the one I translated
                 {
-                    File.Copy(archive, Path.Combine(Application.StartupPath, "Data", "Debug", "original_STARTPOINT.obj.gz"));
+                    File.Copy(archive, Path.Combine(Application.StartupPath, "Data", "Debug", "original_STARTPOINT.obj.gz"), true);
                     continue;
                 }
 
