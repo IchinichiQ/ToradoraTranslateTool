@@ -12,6 +12,9 @@ The instruction on the images translation is written in Images/HowTo.txt.
 
 You can automatically insert line breaks into the current file or all files at once through the context menu. But if you need to move the text to a new line manually, insert the symbol Fullwidth Low Line - "＿".
 
+To add a new phrase, you must write it in square brackets in the phrase after which you want to insert the new phrase. For example, "First phrase\[Second phrase\]".  
+To remove a phrase, you must write "\[DEL\]" in it. For example, "Unnecessary phrase\[DEL\]"
+
 ## Features
 
 - ISO extracting and repacking
