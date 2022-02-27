@@ -1,0 +1,102 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="Current">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugTests|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DebugTests\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;UNIT_TESTS</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2081BDDC-A099-4408-82BA-2436F5860A4D}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>tenoritool</RootNamespace>
+    <AssemblyName>tenoritool</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Mono.Posix.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.4.1.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FileInfo\ArchiveInfo.cs" />
+    <Compile Include="CLIOptions.cs" />
+    <Compile Include="CommandLine\ArgumentParser.cs" />
+    <Compile Include="CommandLine\BaseOptionAttribute.cs" />
+    <Compile Include="CommandLine\CharEnumeratorEx.cs" />
+    <Compile Include="CommandLine\CommandLineParser.cs" />
+    <Compile Include="CommandLine\CopyrightInfo.cs" />
+    <Compile Include="CommandLine\HeadingInfo.cs" />
+    <Compile Include="CommandLine\HelpOptionAttribute.cs" />
+    <Compile Include="CommandLine\HelpText.cs" />
+    <Compile Include="CommandLine\ICommandLineParser.cs" />
+    <Compile Include="CommandLine\IncompatibleTypesException.cs" />
+    <Compile Include="CommandLine\IOptionMap.cs" />
+    <Compile Include="CommandLine\IStringEnumerator.cs" />
+    <Compile Include="CommandLine\LongOptionParser.cs" />
+    <Compile Include="CommandLine\OptionAttribute.cs" />
+    <Compile Include="CommandLine\OptionGroupParser.cs" />
+    <Compile Include="CommandLine\OptionInfo.cs" />
+    <Compile Include="CommandLine\OptionListAttribute.cs" />
+    <Compile Include="CommandLine\OptionMap.cs" />
+    <Compile Include="CommandLine\PairT.cs" />
+    <Compile Include="CommandLine\Parser.cs" />
+    <Compile Include="CommandLine\ParserException.cs" />
+    <Compile Include="CommandLine\ParserState.cs" />
+    <Compile Include="CommandLine\ReflectionUtil.cs" />
+    <Compile Include="CommandLine\StringEnumeratorEx.cs" />
+    <Compile Include="CommandLine\Tests\CommandLineParserFixture.cs" />
+    <Compile Include="CommandLine\Validator.cs" />
+    <Compile Include="CommandLine\ValueListAttribute.cs" />
+    <Compile Include="FileInfo\BinaryIO.cs" />
+    <Compile Include="FileInfo\SizeFormatter.cs" />
+    <Compile Include="GSSUtils\PathUtility.cs" />
+    <Compile Include="TenoriTool.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\DirectoryIteratorFixture.cs" />
+    <Compile Include="Properties\ThisAssembly.cs" />
+    <Compile Include="Tests\PathUtilityFixture.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

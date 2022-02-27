@@ -7,20 +7,41 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToradoraTranslateTool", "To
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OBJEditor", "OBJEditor\OBJEditor.csproj", "{982F6A65-F0D6-4AAE-8C13-03C2F8A36ABC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatWorker", "DatWorker\DatWorker.csproj", "{6C767FD1-CBC7-40FA-A8BD-ACE61E4D3FC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tenoritool", "tenoritool\tenoritool.csproj", "{2081BDDC-A099-4408-82BA-2436F5860A4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		DebugTests|Any CPU = DebugTests|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{AE5D7ADD-9B69-4CA7-8060-A48CF665A821}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AE5D7ADD-9B69-4CA7-8060-A48CF665A821}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE5D7ADD-9B69-4CA7-8060-A48CF665A821}.DebugTests|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE5D7ADD-9B69-4CA7-8060-A48CF665A821}.DebugTests|Any CPU.Build.0 = Debug|Any CPU
 		{AE5D7ADD-9B69-4CA7-8060-A48CF665A821}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE5D7ADD-9B69-4CA7-8060-A48CF665A821}.Release|Any CPU.Build.0 = Release|Any CPU
 		{982F6A65-F0D6-4AAE-8C13-03C2F8A36ABC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{982F6A65-F0D6-4AAE-8C13-03C2F8A36ABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{982F6A65-F0D6-4AAE-8C13-03C2F8A36ABC}.DebugTests|Any CPU.ActiveCfg = Debug|Any CPU
+		{982F6A65-F0D6-4AAE-8C13-03C2F8A36ABC}.DebugTests|Any CPU.Build.0 = Debug|Any CPU
 		{982F6A65-F0D6-4AAE-8C13-03C2F8A36ABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{982F6A65-F0D6-4AAE-8C13-03C2F8A36ABC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C767FD1-CBC7-40FA-A8BD-ACE61E4D3FC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C767FD1-CBC7-40FA-A8BD-ACE61E4D3FC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C767FD1-CBC7-40FA-A8BD-ACE61E4D3FC2}.DebugTests|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C767FD1-CBC7-40FA-A8BD-ACE61E4D3FC2}.DebugTests|Any CPU.Build.0 = Debug|Any CPU
+		{6C767FD1-CBC7-40FA-A8BD-ACE61E4D3FC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C767FD1-CBC7-40FA-A8BD-ACE61E4D3FC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2081BDDC-A099-4408-82BA-2436F5860A4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2081BDDC-A099-4408-82BA-2436F5860A4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2081BDDC-A099-4408-82BA-2436F5860A4D}.DebugTests|Any CPU.ActiveCfg = DebugTests|Any CPU
+		{2081BDDC-A099-4408-82BA-2436F5860A4D}.DebugTests|Any CPU.Build.0 = DebugTests|Any CPU
+		{2081BDDC-A099-4408-82BA-2436F5860A4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2081BDDC-A099-4408-82BA-2436F5860A4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
