@@ -426,39 +426,30 @@ namespace ToradoraTranslateTool
         }
 
         #region Line breaks inserting
-        private string InsertLineBreaks(string insertTo)
-        {          
-            string newString = "";
-            string secondString = null;
-            if (insertTo.Contains("[") && insertTo.Contains("]"))
+        private void InsertLineBreaks(LineBreaksInserter inserter)
+        {
+            for (int i = 0; i < dataGridViewStrings.RowCount; i++)
             {
-                secondString = Regex.Match(insertTo, @"\[(.*?)\]").Groups[1].Value;
-                insertTo = insertTo.Replace("[" + secondString + "]", "");
-            }
+                string currentString = dataGridViewStrings.Rows[i].Cells[2].Value?.ToString();
+                bool isSpeech = dataGridViewStrings.Rows[i].Cells[0].Value?.ToString() != "";
 
-            Font myFont = new Font("Calibri", 21.5f, FontStyle.Regular);
-            if (TextRenderer.MeasureText(insertTo, myFont).Width > 600 && !insertTo.Contains('＿'))
+                string newString = inserter.InsertLineBreaks(currentString, isSpeech);
+
+                dataGridViewStrings.Rows[i].Cells[2].Value = newString;
+            }
+        }
+
+        private string SelectDumpedFontFile()
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                string[] words = insertTo.Split();
+                openFileDialog.Filter = "Dumped font file (*.txt) | *.txt";
 
-                for (int j = 0; j < words.Length; j++)
-                {
-                    string tempString = newString.Substring(newString.LastIndexOf('＿') + 1) + " " + words[j];
-
-                    if (TextRenderer.MeasureText(tempString, myFont).Width > 600)
-                        newString += "＿" + words[j];
-                    else
-                        newString += " " + words[j];
-                }
-                newString = newString.Trim();
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    return openFileDialog.FileName;
+                else
+                    return null;
             }
-            else
-                newString = insertTo;
-                
-            if (secondString != null)
-                newString += "[" + InsertLineBreaks(secondString) + "]";
-
-            return newString;
         }
 
         private void itemLineBreaks_Click(object sender, EventArgs e)
@@ -471,8 +462,10 @@ namespace ToradoraTranslateTool
                     return;
                 }
 
-                for (int i = 0; i < dataGridViewStrings.RowCount; i++)
-                    dataGridViewStrings.Rows[i].Cells[2].Value = InsertLineBreaks(dataGridViewStrings.Rows[i].Cells[2].Value?.ToString());
+                string dumpedFontFile = SelectDumpedFontFile();
+                LineBreaksInserter inserter = new LineBreaksInserter(dumpedFontFile, 465);
+
+                InsertLineBreaks(inserter);
             }
             catch (Exception ex)
             {
@@ -484,6 +477,9 @@ namespace ToradoraTranslateTool
         {
             try
             {
+                string dumpedFontFile = SelectDumpedFontFile();
+                LineBreaksInserter inserter = new LineBreaksInserter(dumpedFontFile, 465);
+
                 for (int i = 1; i < dataGridViewFiles.RowCount; i++)
                 {
                     string objName = dataGridViewFiles[0, i].Value.ToString();
@@ -493,8 +489,9 @@ namespace ToradoraTranslateTool
                     dataGridViewFiles.CurrentCell = dataGridViewFiles.Rows[i].Cells[0];
 
                     LoadFile(objName);
-                    for (int j = 0; j < dataGridViewStrings.RowCount; j++)
-                        dataGridViewStrings.Rows[j].Cells[2].Value = InsertLineBreaks(dataGridViewStrings.Rows[j].Cells[2].Value?.ToString());
+
+                    InsertLineBreaks(inserter);
+
                     Application.DoEvents();
                 }
             }
