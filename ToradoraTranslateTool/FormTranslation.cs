@@ -463,7 +463,7 @@ namespace ToradoraTranslateTool
                 }
 
                 string dumpedFontFile = SelectDumpedFontFile();
-                LineBreaksInserter inserter = new LineBreaksInserter(dumpedFontFile, 465);
+                LineBreaksInserter inserter = new LineBreaksInserter(dumpedFontFile, 455);
 
                 InsertLineBreaks(inserter);
             }
@@ -478,7 +478,7 @@ namespace ToradoraTranslateTool
             try
             {
                 string dumpedFontFile = SelectDumpedFontFile();
-                LineBreaksInserter inserter = new LineBreaksInserter(dumpedFontFile, 465);
+                LineBreaksInserter inserter = new LineBreaksInserter(dumpedFontFile, 455);
 
                 for (int i = 1; i < dataGridViewFiles.RowCount; i++)
                 {

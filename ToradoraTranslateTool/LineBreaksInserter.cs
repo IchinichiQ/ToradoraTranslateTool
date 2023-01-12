@@ -10,7 +10,7 @@ namespace ToradoraTranslateTool
     class LineBreaksInserter
     {
         private Dictionary<char, int> glyphsWidth;
-        private readonly float maxLineLength;
+        private readonly int maxLineLength;
 
         public LineBreaksInserter(string pathToDumpedFont, int maxLineLength)
         {
@@ -29,7 +29,7 @@ namespace ToradoraTranslateTool
                 int charCode = int.Parse(dumpedFontLines[i], NumberStyles.HexNumber);
                 char curChar = Char.ConvertFromUtf32(charCode).ToCharArray()[0];
 
-                decimal charWidthInaccurate = decimal.Parse(dumpedFontLines[i + 1], CultureInfo.InvariantCulture);
+                double charWidthInaccurate = double.Parse(dumpedFontLines[i + 1], CultureInfo.InvariantCulture);
                 int charWidthAccurate = (int)Math.Ceiling(charWidthInaccurate);
 
                 glyphsWidth.Add(curChar, charWidthAccurate);
