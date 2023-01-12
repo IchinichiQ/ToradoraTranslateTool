@@ -27,7 +27,7 @@ namespace ToradoraTranslateTool
             {
                 if (Path.GetFileName(archive) == "STARTPOINT.obj.gz") // Save the original debug menu because it will be replaced by the one I translated
                 {
-                    File.Copy(archive, Path.Combine(Application.StartupPath, "Data", "Debug", "original_STARTPOINT.obj.gz"), true);
+                    File.Copy(archive, Path.Combine(Application.StartupPath, "Data", "DebugMode", "original_STARTPOINT.obj.gz"), true);
                     continue;
                 }
 
@@ -137,11 +137,11 @@ namespace ToradoraTranslateTool
 
             if (debugMode)
             {
-                File.Copy(Path.Combine(Application.StartupPath, "Data", "Debug", "_0000ESS1.obj.gz"), Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource", "script", "_0000ESS1", "_0000ESS1.0001", "_0000ESS1.obj.gz"), true); // This file enables debug mode
-                File.Copy(Path.Combine(Application.StartupPath, "Data", "Debug", "STARTPOINT.obj.gz"), Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource", "script", "STARTPOINT", "STARTPOINT.0001", "STARTPOINT.obj.gz"), true); // This is pretranslated debug menu 
+                File.Copy(Path.Combine(Application.StartupPath, "Data", "DebugMode", "_0000ESS1.obj.gz"), Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource", "script", "_0000ESS1", "_0000ESS1.0001", "_0000ESS1.obj.gz"), true); // This file enables debug mode
+                File.Copy(Path.Combine(Application.StartupPath, "Data", "DebugMode", "STARTPOINT.obj.gz"), Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource", "script", "STARTPOINT", "STARTPOINT.0001", "STARTPOINT.obj.gz"), true); // This is pretranslated debug menu 
             }
             else
-                File.Copy(Path.Combine(Application.StartupPath, "Data", "Debug", "original_STARTPOINT.obj.gz"), Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource", "script", "STARTPOINT", "STARTPOINT.0001", "STARTPOINT.obj.gz"), true); // Restore original debug menu        
+                File.Copy(Path.Combine(Application.StartupPath, "Data", "DebugMode", "original_STARTPOINT.obj.gz"), Path.Combine(Application.StartupPath, "Data", "DatWorker", "resource", "script", "STARTPOINT", "STARTPOINT.0001", "STARTPOINT.obj.gz"), true); // Restore original debug menu        
         }
 
         public static void RepackTxt()

@@ -132,10 +132,10 @@
     <Content Include="Data\DatWorker\Workspace\!xp.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Debug\STARTPOINT.obj.gz">
+    <Content Include="Data\DebugMode\STARTPOINT.obj.gz">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Debug\_0000ESS1.obj.gz">
+    <Content Include="Data\DebugMode\_0000ESS1.obj.gz">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Images\!!Tools\!BGPngToGim.bat">
